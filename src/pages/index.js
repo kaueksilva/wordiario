@@ -13,24 +13,13 @@ import styles from 'styles/pages/Home.module.scss';
 
 export default function Home({ posts, pagination }) {
   const { metadata = {} } = useSite();
-  const { title, description } = metadata;
+  const { title } = metadata;
 
   return (
     <Layout>
       <WebsiteJsonLd siteTitle={title} />
       <Header>
-        <h1
-          dangerouslySetInnerHTML={{
-            __html: title,
-          }}
-        />
-
-        <p
-          className={styles.description}
-          dangerouslySetInnerHTML={{
-            __html: description,
-          }}
-        />
+        <h1> DIÁRIO OFICIAL DE JABOATÃO DOS GUARARAPES </h1>
       </Header>
 
       <Section>

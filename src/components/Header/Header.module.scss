@@ -1,44 +1,65 @@
 @import "styles/settings/__settings";
-
 @import "styles/components/_container";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap');
+
 
 .header {
-  margin: 5rem 0;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  
 
   h1 {
-    margin: 0;
-    line-height: 1.15;
-    font-size: 3rem;
-    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    position: relative;
+    z-index: 2;  // O título fica sobre as imagens de fundo
 
     @media (min-width: 480px) {
-      font-size: 4rem;
-    }
-
-    a {
-      color: $color-primary;
-      text-decoration: none;
-
-      &:hover,
-      &:focus,
-      &:active {
-        text-decoration: underline;
-      }
-    }
-
-    & + ul {
-      margin-top: 1.5em;
+      font-size: 67px;
     }
   }
 
-  p {
-    &:last-child {
-      margin-bottom: 0;
-    }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-size: cover;
+    background-position: center;
+    animation: slideBackground 20s infinite;  // Ajustamos o tempo total para 20 segundos
   }
 
-  figure {
-    margin-left: -2rem;
-    margin-right: -2rem;
+  // Keyframes para alternar entre as 3 imagens
+  @keyframes slideBackground {
+    0% {
+      background-image: url('/images/fundo1.jpg');
+    }
+    10% {
+      background-image: url('/images/fundo1.jpg');
+    }
+    33% {
+      background-image: url('/images/fundo2.jpg');
+    }
+    43% {
+      background-image: url('/images/fundo2.jpg');
+    }
+    66% {
+      background-image: url('/images/fundo3.jpg');
+    }
+    76% {
+      background-image: url('/images/fundo3.jpg');
+    }
+    100% {
+      background-image: url('/images/fundo1.jpg');
+    }
   }
 }
