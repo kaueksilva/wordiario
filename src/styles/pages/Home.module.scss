@@ -1,18 +1,23 @@
 @import "styles/settings/__settings";
 
+
 .description {
   text-align: center;
   line-height: 1.5;
   font-size: 1.5rem;
+  color: #003476;
 }
 
 .posts {
   list-style: none;
   padding-left: 0;
   margin: -1rem 0;
+  color: #003476;
 
   & > li {
     margin: 4em 0;
+    border: 13px solid #ADADAD;
+    border-radius: 15px;
 
     &:first-child {
       margin-top: 0;
