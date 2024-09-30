@@ -1,78 +1,350 @@
 @import "styles/settings/__settings";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
 
-.footer {
-  width: 100%;
-  border-top: 1px solid $color-gray-100;
-}
+@media (min-width: 1500px) {
+  .footer {
+    display: flex;
+    justify-content: space-between; /* Garante que as colunas se espalhem uniformemente */
+    align-items: stretch; /* Faz com que as colunas tenham a mesma altura */
+    padding: 90px 20px; /* Padding horizontal ajustado para responsividade */
+    background-color: #184277;
+    color: #fff;
+    font-size: 13px;
+    width: 100%;
+    flex-wrap: wrap; /* Permite que as colunas quebrem linha em telas menores */
+  }
 
-.footerMenu {
-  margin: 2rem 0;
+  .footercolumn1,
+  .footercolumn2,
+  .footercolumn3 {
+    flex: 1; /* Faz com que cada coluna use igualmente o espaço disponível */
+    padding: 0 20px;
+    border-left: #ffffff 2px dotted;
+    min-width: 200px; /* Define uma largura mínima para as colunas */
+    display: flex;
+    flex-direction: column; /* Garante que o conteúdo interno seja empilhado */
+    height: 100%; /* Faz com que a borda ocupe toda a altura da coluna */
+  }
 
-  ul {
+  .footercolumn1 {
+    margin-left: 400px;
+  }
+
+  .footercolumn3 {
+    margin-right: 300px;
+  }
+
+  .footercolumn3 p {
+    margin: 0px;
+  }
+
+  .footerborder {
+    border-bottom: 1px #fff solid;
+    margin-bottom: 10px;
+    width: 20%; /* Mantém a borda com largura 100% da coluna */
+  }
+
+  .footerlist {
     list-style: none;
     padding: 0;
   }
-}
 
-.footerMenuColumns {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0 -2em;
-
-  @media (min-width: 480px) {
-    justify-content: center;
+  .footerlist li {
+    margin-bottom: 5px;
   }
 
-  & > li {
-    max-width: 15em;
-    margin: 2em;
-  }
-}
-
-.footerMenuTitle {
-  display: inline-block;
-  color: $color-gray-800;
-  text-decoration: none;
-  margin-bottom: 1.4em;
-  margin-top: 0;
-}
-
-.footerMenuItems {
-  li {
-    margin-bottom: 1em;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+  .iconesfooter {
+    color: white;
+    display: flex;
+    gap: 20px;
+    font-size: 25px;
   }
 
-  a {
-    display: block;
-    overflow: hidden;
-    color: $color-gray-600;
-    text-decoration: none;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
-    @media (hover: hover) {
-      &:hover {
-        color: $color-primary;
-        text-decoration: underline;
-      }
-    }
+  .partebranca {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #f8f8f8;
   }
-}
 
-.footerLegal {
-  color: $color-gray-400;
-  background-color: $color-gray-900;
-  padding: 0.8rem 0;
-  margin: 0;
-
-  p {
-    font-size: 0.9em;
+  .details1 {
     text-align: center;
-    margin: 0;
+    color: #224276;
+  }
+
+  .details2 {
+    text-align: end;
+    margin-right: 300px;
+    color: #224276;
+  }
+
+  .logof img {
+    height: 50px;
+    margin-left: 300px;
+  }
+
+  .credits {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .footerlist a {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 10px;
+    text-decoration: none;
+    color: white; /* Herda a cor do texto do pai */
+  }
+
+  .footerlist a:hover {
+    text-decoration: underline;
+  }
+
+  .footertitle{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 20px;
+  }
+
+  .footercolumn3 .footertitle a {
+    text-decoration: none;
+  }
+
+  .footercolumn3 .footertitle a:hover {
+    text-decoration: underline;
+  }
+
+  .iconesfooter a i {
+    color: inherit; /* Mantém a cor original dos ícones */
+    transition: color 0.3s ease; /* Adiciona uma transição suave ao hover */
+  }
+
+  .iconesfooter a i:hover {
+    color: #fff; /* Muda a cor do ícone para branco no hover */
   }
 }
+
+@media (max-width: 1499px) and (min-width: 768px) {
+  .footer {
+    display: flex;
+    justify-content: space-between; /* Garante que as colunas se espalhem uniformemente */
+    align-items: stretch; /* Faz com que as colunas tenham a mesma altura */
+    padding: 90px 20px; /* Padding horizontal ajustado para responsividade */
+    background-color: #184277;
+    color: #fff;
+    font-size: 13px;
+    width: 100%;
+    flex-wrap: wrap; /* Permite que as colunas quebrem linha em telas menores */
+  }
+
+  .footercolumn1,
+  .footercolumn2,
+  .footercolumn3 {
+    flex: 1; /* Faz com que cada coluna use igualmente o espaço disponível */
+    padding: 0 20px;
+    border-left: #ffffff 2px dotted;
+    min-width: 200px; /* Define uma largura mínima para as colunas */
+    display: flex;
+    flex-direction: column; /* Garante que o conteúdo interno seja empilhado */
+    height: 100%; /* Faz com que a borda ocupe toda a altura da coluna */
+  }
+
+  .footertitle {
+    font-size: 18px;
+    margin-top: 10px;
+  }
+
+  .footerborder {
+    border-bottom: 1px #fff solid;
+    margin-bottom: 10px;
+    width: 20%; /* Mantém a borda com largura 100% da coluna */
+  }
+
+  .footerlist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footerlist li {
+    margin-bottom: 5px;
+  }
+
+  .iconesfooter {
+    display: flex;
+    gap: 20px;
+    font-size: 25px;
+  }
+
+  .partebranca {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    text-align: center; /* Centraliza o texto */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #f8f8f8;
+  }
+
+  .details1,
+  .details2 {
+    color: #224276;
+    margin: 10px 0; /* Adiciona espaçamento entre os detalhes e a logo */
+  }
+
+  .logo-f img {
+    height: 50px;
+    margin: 20px auto; /* Centraliza a logo horizontalmente */
+  }
+
+  .credits {
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .footerlist a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do texto do pai */
+  }
+
+  .footerlist a:hover {
+    text-decoration: underline;
+  }
+
+  .footertitle {
+    font-size: 1.2rem;
+  }
+
+  .footer-column3 .footer-title a {
+    text-decoration: none;
+  }
+
+  .footercolumn3 .footertitle a:hover {
+    text-decoration: underline;
+  }
+
+  .iconesfooter a i {
+    color: inherit; /* Mantém a cor original dos ícones */
+    transition: color 0.3s ease; /* Adiciona uma transição suave ao hover */
+  }
+
+  .iconesfooter a i:hover {
+    color: #fff; /* Muda a cor do ícone para branco no hover */
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 90px 20px; /* Padding horizontal ajustado para responsividade */
+    background-color: #184277;
+    color: #fff;
+    font-size: 13px;
+    width: 100%;
+    flex-wrap: wrap; /* Permite que as colunas quebrem linha em telas menores */
+  }
+
+  .footercolumn1,
+  .footercolumn2,
+  .footercolumn3 {
+    padding: 0 20px;
+    border-left: #ffffff 2px dotted;
+    min-width: 200px; /* Define uma largura mínima para as colunas */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Faz com que a borda ocupe toda a altura da coluna */
+  }
+
+  .footertitle {
+    margin-top: 10px;
+  }
+
+  .footerborder {
+    border-bottom: 1px #fff solid;
+    margin-bottom: 10px;
+    width: 20%; /* Mantém a borda com largura 100% da coluna */
+  }
+
+  .footerlist {
+    list-style: none;
+    padding: 0;
+  }
+
+  .footerlist li {
+    margin-bottom: 5px;
+  }
+
+  .iconesfooter {
+    display: flex;
+    gap: 20px;
+    font-size: 25px;
+  }
+
+  .partebranca {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza os itens horizontalmente */
+    justify-content: center; /* Centraliza os itens verticalmente */
+    text-align: center; /* Centraliza o texto */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background-color: #f8f8f8;
+  }
+
+  .details1,
+  .details2 {
+    color: #224276;
+    margin: 10px 0; /* Adiciona espaçamento entre os detalhes e a logo */
+  }
+
+  .logof img {
+    height: 50px;
+    margin: 20px auto; /* Centraliza a logo horizontalmente */
+  }
+
+  .credits {
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    padding: 5px;
+  }
+
+  .footerlist a {
+    text-decoration: none;
+    color: inherit; /* Herda a cor do texto do pai */
+  }
+
+  .footerlist a:hover {
+    text-decoration: underline;
+  }
+
+
+  .footercolumn3 .footertitle a {
+    text-decoration: none;
+  }
+
+  .footercolumn3 .footertitle a:hover {
+    text-decoration: underline;
+  }
+
+  .iconesfooter a i {
+    color: inherit; /* Mantém a cor original dos ícones */
+    transition: color 0.3s ease; /* Adiciona uma transição suave ao hover */
+  }
+
+  .iconesfooter a i:hover {
+    color: #fff; /* Muda a cor do ícone para branco no hover */
+  }
+}
+
