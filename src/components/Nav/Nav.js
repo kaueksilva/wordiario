@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import styles from './Nav.module.scss';
+// import styles from './Nav.module.scss';
 import { FaPlus } from 'react-icons/fa';
 import { FaMinus } from 'react-icons/fa';
 import { IoIosArrowDown } from 'react-icons/io';
@@ -358,47 +358,68 @@ const Menu = () => {
                 </li>
 
                 {/* Busca */}
-                <div className={styles.navSearch}>
-                  {searchVisibility === SEARCH_HIDDEN && (
-                    <button onClick={handleOnToggleSearch} disabled={!searchIsLoaded}>
-                      <span className="sr-only">Toggle Search</span>
-                      <FaSearch />
-                    </button>
-                  )}
-                  {searchVisibility === SEARCH_VISIBLE && (
-                    <form ref={formRef} action="/search" data-search-is-active={!!query}>
-                      <input
-                        type="search"
-                        name="q"
-                        value={query || ''}
-                        onChange={handleOnSearch}
-                        autoComplete="off"
-                        placeholder="Search..."
-                        required
-                      />
-                      <div className={styles.navSearchResults}>
-                        {results.length > 0 && (
-                          <ul>
-                            {results.map(({ slug, title }, index) => {
-                              return (
-                                <li key={slug}>
-                                  <Link tabIndex={index} href={postPathBySlug(slug)}>
-                                    {title}
-                                  </Link>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        )}
-                        {results.length === 0 && (
-                          <p>
-                            Sorry, not finding anything for <strong>{query}</strong>
-                          </p>
-                        )}
+                <li className="border-b border-gray-100">
+                  <div className="flex items-center justify-center flex-col h-full lg:flex-row lg:justify-between">
+                    {/* Ícone de Busca */}
+                    <div className="flex items-center justify-center flex-grow-0">
+                      <button
+                        onClick={handleOnToggleSearch}
+                        disabled={!searchIsLoaded}
+                        className="bg-none border-none outline-none cursor-pointer flex items-center justify-center"
+                      >
+                        <span className="sr-only">Toggle Search</span>
+                        <FaSearch className={`fill-gray-400 ${!searchIsLoaded ? 'fill-gray-200' : ''}`} />
+                      </button>
+                    </div>
+
+                    {/* Campo de Busca sobreposto abaixo do Menu */}
+                    {searchVisibility === SEARCH_VISIBLE && (
+                      <div className="absolute top-full right-0 bg-gray-50 p-4 shadow-lg z-50 border-t-[3px] border-[#7baeff]">
+                        <form
+                          ref={formRef}
+                          action="/search"
+                          data-search-is-active={!!query}
+                          className="flex items-center justify-center relative w-full"
+                        >
+                          <input
+                            type="search"
+                            name="q"
+                            value={query || ''}
+                            onChange={handleOnSearch}
+                            autoComplete="off"
+                            placeholder="Pesquisar..."
+                            required
+                            className="text-sm w-full p-2 border border-gray-300 rounded-md"
+                          />
+                          <div
+                            className={`absolute top-full right-0 w-full lg:w-[30em] bg-white shadow-md border-t-4 border-primary z-50 
+                              ${query ? 'block' : 'hidden'}`}
+                          >
+                            {results.length > 0 ? (
+                              <ul className="list-none border-t-[3px] border-[#7baeff]">
+                                {results.map(({ slug, title }, index) => (
+                                  <li key={slug} className="p-1 -mx-2">
+                                    <Link
+                                      tabIndex={index}
+                                      href={postPathBySlug(slug)}
+                                      className="block text-gray-800 no-underline p-2 focus:outline focus:outline-blue-500 hover:text-primary"
+                                    >
+                                      {title}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p className="leading-[1.15] m-0">
+                                Sorry, not finding anything for <strong>{query}</strong>
+                              </p>
+                            )}
+                          </div>
+                        </form>
                       </div>
-                    </form>
-                  )}
-                </div>
+                    )}
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
