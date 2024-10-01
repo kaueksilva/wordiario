@@ -1,6 +1,5 @@
 @import "styles/settings/__settings";
 
-
 .description {
   text-align: center;
   line-height: 1.5;
@@ -16,7 +15,7 @@
 
   & > li {
     margin: 4em 0;
-    border: 13px solid #ADADAD;
+    border: 10px solid #adadad;
     border-radius: 15px;
 
     &:first-child {
