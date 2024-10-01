@@ -172,33 +172,35 @@ const Menu = () => {
               <i className="ri-instagram-line text-white text-[17px]"></i>
               <i className="ri-youtube-fill text-white text-[17px]"></i>
             </div>
-            <ul className="menu-topo hidden lg:flex gap-3 mr-11 font-open-sans">
-              <li className="nav-topo">
-                <a href="#" className="nav-link text-white text-[12px] hover:underline">
-                  Site Oficial
-                </a>
-              </li>
-              <li className="nav-topo">
-                <a href="#" className="nav-link text-white text-[12px] hover:underline">
-                  Ouvidoria
-                </a>
-              </li>
-              <li className="nav-topo">
-                <a href="#" className="nav-link text-white text-[12px] hover:underline">
-                  Portal da Transparência
-                </a>
-              </li>
-              <li className="nav-topo">
-                <a href="#" className="nav-link text-white text-[12px] hover:underline">
-                  Portal do Contribuinte
-                </a>
-              </li>
-              <li>
-                <a href="#" className="icone-amarelo">
-                  <Image src="/images/iconamarelo.png" alt="foto amarela" width={20} height={20} />
-                </a>
-              </li>
-            </ul>
+            <div className="flex items-center justify-center h-full">
+              <ul className="menu-topo hidden lg:flex gap-3 mr-11 font-open-sans items-center justify-center">
+                <li className="nav-topo flex items-center">
+                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                    Site Oficial
+                  </a>
+                </li>
+                <li className="nav-topo flex items-center">
+                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                    Ouvidoria
+                  </a>
+                </li>
+                <li className="nav-topo flex items-center">
+                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                    Portal da Transparência
+                  </a>
+                </li>
+                <li className="nav-topo flex items-center">
+                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                    Portal do Contribuinte
+                  </a>
+                </li>
+                <li className="flex items-center">
+                  <a href="#" className="icone-amarelo">
+                    <Image src="/images/iconamarelo.png" alt="foto amarela" width={20} height={20} />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           {/* Menu Principal */}
