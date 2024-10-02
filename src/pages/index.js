@@ -18,10 +18,7 @@ export default function Home({ posts, pagination }) {
   return (
     <Layout>
       <WebsiteJsonLd siteTitle={title} />
-      <Header>
-        <h1> DIÁRIO OFICIAL DE JABOATÃO DOS GUARARAPES </h1>
-      </Header>
-
+      <Header />
       <Section>
         <Container>
           <h2 className="sr-only">Posts</h2>

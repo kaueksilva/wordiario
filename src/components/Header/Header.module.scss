@@ -4,19 +4,22 @@
 
 .header {
   position: relative;
-  width: 100%;
   height: 500px;
-  display: flex;
   align-items: end;
-  color: white;
-  text-align: center;
-  padding-bottom: 80px;
+  display: flex;
 
   h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    color: white;
+    padding-bottom: 80px;
     font-family: 'Roboto', sans-serif;
     font-weight: 600;
     font-size: 58px; // Tamanho da fonte inicial para telas grandes
-    position: relative;
     z-index: 2; // O título fica sobre as imagens de fundo
     transition: font-size 0.3s ease; // Transição suave para ajustes de tamanho
     text-shadow: 6px 4px 10px rgba(0, 0, 0, 0.5);

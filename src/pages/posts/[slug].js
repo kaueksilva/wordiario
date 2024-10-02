@@ -10,28 +10,14 @@ import useSite from 'hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';
-import Header from 'components/Header';
 import Section from 'components/Section';
 import Container from 'components/Container';
 import Content from 'components/Content';
-import Metadata from 'components/Metadata';
-import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post, socialImage, related }) {
-  const {
-    title,
-    metaTitle,
-    description,
-    content,
-    date,
-    author,
-    categories,
-    modified,
-    featuredImage,
-    isSticky = false,
-  } = post;
+  const { title, metaTitle, description, content, modified = false } = post;
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
 
@@ -53,14 +39,10 @@ export default function Post({ post, socialImage, related }) {
   });
 
   if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-    metadata.title = `${title} - ${siteMetadata.title}`;
+    metadata.title = `${title}` - `${siteMetadata.title}`;
     metadata.og.title = metadata.title;
     metadata.twitter.title = metadata.title;
   }
-
-  const metadataOptions = {
-    compactCategories: false,
-  };
 
   const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
 
@@ -72,7 +54,7 @@ export default function Post({ post, socialImage, related }) {
 
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
-      <Header>
+      {/* <Header>
         {featuredImage && (
           <FeaturedImage
             {...featuredImage}
@@ -93,8 +75,40 @@ export default function Post({ post, socialImage, related }) {
           categories={categories}
           options={metadataOptions}
           isSticky={isSticky}
+          
         />
-      </Header>
+      </Header> */}
+      <div className="bg-[radial-gradient(circle_at_center,#ffffff,#AFAFAF)] text-white text-4xl font-bold py-8 text-center relative mt-[110px]">
+        {/* Títulos e Imagem em Destaque */}
+        <div className="flex justify-center items-center mb-4 flex-wrap">
+          {/* Renderização do título "DIÁRIO" */}
+          <h1 className="text-[40px] font-normal text-[#003476]">DIÁRIO</h1>
+
+          {/* Ícone no centro */}
+          <span className="mx-9">
+            <img
+              src="/images/logotop.png" // Substitua pelo caminho do seu ícone
+              alt="Ícone"
+              className="h-20 w-16" // Tamanho aumentado
+            />
+          </span>
+
+          {/* Renderização do título "OFICIAL" */}
+          <h1 className="text-[40px] font-normal text-[#003476]">OFICIAL</h1>
+        </div>
+
+        {/* Renderização do subtítulo "PODER EXECUTIVO" */}
+        <h2 className="text-[15px] font-normal text-[#003476]">PODER EXECUTIVO</h2>
+      </div>
+
+      {/* Div para o título principal e metadados */}
+      <div className="text-center mt-0">
+        {/* Metadados e Título principal dentro da linha azul */}
+        <div className="bg-[#224276] text-white text-center py-4">
+          {/* Título principal */}
+          <h1 className="text-[23px] text-[#ffffff] font-bold" dangerouslySetInnerHTML={{ __html: title }} />
+        </div>
+      </div>
 
       <Content>
         <Section>
@@ -150,7 +164,7 @@ export async function getStaticProps({ params = {} } = {}) {
 
   const props = {
     post,
-    socialImage: `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`,
+    socialImage: `${process.env.OG_IMAGE_DIRECTORY}` / `${params?.slug}`.png,
   };
 
   const { category: relatedCategory, posts: relatedPosts } = (await getRelatedPosts(categories, postId)) || {};
