@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet';
 
 import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
-import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
@@ -17,7 +16,7 @@ import Content from 'components/Content';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post, socialImage, related }) {
-  const { title, metaTitle, description, content, modified = false } = post;
+  const { title, metaTitle, description, content = false } = post;
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
 
@@ -125,7 +124,6 @@ export default function Post({ post, socialImage, related }) {
 
       <Section className={styles.postFooter}>
         <Container>
-          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
           {Array.isArray(relatedPostsList) && relatedPostsList.length > 0 && (
             <div className={styles.relatedPosts}>
               {relatedPostsTitle.name ? (
