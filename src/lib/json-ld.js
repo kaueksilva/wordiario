@@ -7,7 +7,7 @@ import { pagePathBySlug } from 'lib/pages';
 import config from '../../package.json';
 
 export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
-  const { homepage = '', faviconPath = '/favicon.ico' } = config;
+  const { homepage = '', faviconPath = '/jg-icon.ico' } = config;
   const { title, slug, excerpt, date, author, categories, modified, featuredImage } = post;
   const path = postPathBySlug(slug);
   const datePublished = !!date && new Date(date);
