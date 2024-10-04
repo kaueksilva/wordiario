@@ -1,9 +1,9 @@
 {
   "name": "next-wordpress-starter",
-  "homepage": "https://next-wordpress-starter.spacejelly.dev",
+  "homepage": "https://guiana3.jaboatao.pe.gov.br",
   "version": "0.1.0",
   "license": "MIT",
-  "author": "Colby Fayock <hello@colbyfayock.com>",
+  "author": "Secretaria Executiva de Governo Digital | SEGD",
   "scripts": {
     "build": "next build",
     "dev": "next dev",
