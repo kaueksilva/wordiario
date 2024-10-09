@@ -496,11 +496,12 @@ const Menu = () => {
                 <i className="ri-youtube-fill text-white text-[24px]"></i>
               </div>
               <ul className="text-center text-[20px] font-bold">
+                {/* Atas de Registro de Preços */}
                 <li className="mb-6">
                   <a
                     href="#"
                     onClick={() => toggleDropdown('Registros')}
-                    className={`flex items-center justify-center 
+                    className={`flex items-center justify-center text-[#ffffff] 
                       ${dropdowns.Registros ? 'border-[1px] border-[#ffffff7c]' : ''}`}
                   >
                     Atas de Registro de Preços
@@ -513,7 +514,124 @@ const Menu = () => {
                   {dropdowns.Registros && (
                     <ul className="mt-2 mb-6 text-[14px] leading-3">
                       <li className="mb-3">
-                        <a href="../mapa_da_estrategia">MAPA DA ESTRATÉGIA</a>
+                        <a href=" /categories/ata-de-registro-de-precos-de-2024" className="text-white">
+                          Registro de Preço - 2024
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/ata-de-registro-de-precos-de-2023" className="text-white">
+                          Registro de Preço - 2023
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/ata-de-registro-de-precos-de-2022" className="text-white">
+                          Registro de Preço - 2022
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/ata-de-registro-de-precos-de-2021" className="text-white">
+                          Registro de Preço - 2021
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/ata-de-registro-de-precos-de-2020" className="text-white">
+                          Registro de Preço - 2020
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/ata-de-registro-de-precos-de-2019" className="text-white">
+                          Registro de Preço - 2019
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/registro-preco-2018" className="text-white">
+                          Registro de Preço - 2018
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/registro-preco-2017" className="text-white">
+                          Registro de Preço - 2017
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/registro-preco-2016" className="text-white">
+                          Registro de Preço - 2016
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/registro-preco-2015" className="text-white">
+                          Registro de Preço - 2015
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </li>
+                {/* Publicações Anteriores do DO */}
+                <li className="mb-6">
+                  <a
+                    href="#"
+                    onClick={() => toggleDropdown('Publicacoes')}
+                    className={`flex items-center justify-center text-[#ffffff] 
+                      ${dropdowns.Publicacoes ? 'border-[1px] border-[#ffffff7c]' : ''}`}
+                  >
+                    Publicações Anteriores do DO
+                    {dropdowns.Publicacoes ? (
+                      <FaMinus className="ml-2 text-[14px] text-white" />
+                    ) : (
+                      <FaPlus className="ml-2 text-[14px] text-white" />
+                    )}
+                  </a>
+                  {dropdowns.Publicacoes && (
+                    <ul className="mt-2 mb-6 text-[14px] leading-3">
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2024" className="text-white">
+                          Diário Oficial - 2024
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2023" className="text-white">
+                          Diário Oficial - 2023
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2022" className="text-white">
+                          Diário Oficial - 2022
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2021" className="text-white">
+                          Diário Oficial - 2021
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2020" className="text-white">
+                          Diário Oficial - 2020
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/diario-oficial-2019" className="text-white">
+                          Diário Oficial - 2019
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/do-2018" className="text-white">
+                          Diário Oficial - 2018
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/do-2017" className="text-white">
+                          Diário Oficial - 2017
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/do-2016" className="text-white">
+                          Diário Oficial - 2016
+                        </a>
+                      </li>
+                      <li className="mb-3">
+                        <a href=" /categories/do-2015" className="text-white">
+                          Diário Oficial - 2015
+                        </a>
                       </li>
                     </ul>
                   )}
