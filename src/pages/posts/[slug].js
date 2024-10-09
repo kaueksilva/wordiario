@@ -187,14 +187,8 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  // Only render the most recent posts to avoid spending unecessary time
-  // querying every single post from WordPress
-
-  // Tip: this can be customized to use data or analytitcs to determine the
-  // most popular posts and render those instead
-
   const { posts } = await getRecentPosts({
-    count: process.env.POSTS_PRERENDER_COUNT, // Update this value in next.config.js!
+    count: process.env.POSTS_PRERENDER_COUNT,
     queryIncludes: 'index',
   });
 
