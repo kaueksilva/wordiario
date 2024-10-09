@@ -13,10 +13,6 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import Content from 'components/Content';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPrint, faFilePdf } from '@fortawesome/free-solid-svg-icons';
-import jsPDF from 'jspdf';
-
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post, socialImage, related }) {
@@ -51,25 +47,36 @@ export default function Post({ post, socialImage, related }) {
 
   const helmetSettings = helmetSettingsFromMetadata(metadata);
 
-  // CRIAR CONST DE GERAR PDF
-  const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text(title, 10, 10); // Adiciona o título do post no PDF
-
-    doc.setFontSize(12);
-    const contentWithoutHTML = content.replace(/(<([^>]+)>)/gi, ''); // Remove as tags HTML
-    const splitContent = doc.splitTextToSize(contentWithoutHTML, 190); // Divide o texto para caber na página
-    doc.text(splitContent, 10, 20); // Adiciona o conteúdo no PDF
-
-    doc.save('post.pdf'); // Salva o PDF com o nome 'post.pdf'
-  };
-
   return (
     <Layout>
       <Helmet {...helmetSettings} />
+
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
+      {/* <Header>
+        {featuredImage && (
+          <FeaturedImage
+            {...featuredImage}
+            src={featuredImage.sourceUrl}
+            dangerouslySetInnerHTML={featuredImage.caption}
+          />
+        )}
+        <h1
+          className={styles.title}
+          dangerouslySetInnerHTML={{
+            __html: title,
+          }}
+        />
+        <Metadata
+          className={styles.postMetadata}
+          date={date}
+          author={author}
+          categories={categories}
+          options={metadataOptions}
+          isSticky={isSticky}
+          
+        />
+      </Header> */}
       <div className="bg-[radial-gradient(circle_at_center,#ffffff,#AFAFAF)] text-white text-4xl font-bold py-8 text-center relative mt-[110px]">
         {/* Títulos e Imagem em Destaque */}
         <div className="flex justify-center items-center mb-4 flex-wrap">
@@ -99,26 +106,6 @@ export default function Post({ post, socialImage, related }) {
         <div className="bg-[#224276] text-white text-center py-4">
           {/* Título principal */}
           <h1 className="text-[23px] text-[#ffffff] font-bold" dangerouslySetInnerHTML={{ __html: title }} />
-        </div>
-
-        {/* GERAR PDF */}
-        <div className="flex justify-center space-x-4 my-4">
-          <button
-            onClick={() => window.print()}
-            className="flex items-center space-x-2 bg-[#003476] text-white px-4 py-2 rounded hover:bg-[#002355] transition-colors"
-            aria-label="Imprimir página"
-          >
-            <FontAwesomeIcon icon={faPrint} className="mr-2" />
-            Imprimir
-          </button>
-          <button
-            onClick={generatePDF}
-            className="flex items-center space-x-2 bg-[#003476] text-white px-4 py-2 rounded hover:bg-[#002355] transition-colors"
-            aria-label="Gerar PDF"
-          >
-            <FontAwesomeIcon icon={faFilePdf} className="mr-2" />
-            Gerar PDF
-          </button>
         </div>
       </div>
 
@@ -197,8 +184,14 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
+  // Only render the most recent posts to avoid spending unecessary time
+  // querying every single post from WordPress
+
+  // Tip: this can be customized to use data or analytitcs to determine the
+  // most popular posts and render those instead
+
   const { posts } = await getRecentPosts({
-    count: process.env.POSTS_PRERENDER_COUNT,
+    count: process.env.POSTS_PRERENDER_COUNT, // Update this value in next.config.js!
     queryIncludes: 'index',
   });
 
