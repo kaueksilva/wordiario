@@ -76,6 +76,15 @@ export default function Post({ post, socialImage, related }) {
           {/* Renderização do título "DIÁRIO" */}
           <h1 className="text-[40px] font-normal text-[#003476]">DIÁRIO</h1>
 
+          {/* Ícone no centro */}
+          <span className="mx-9">
+            <img
+              src="/images/logotop.png" // Substitua pelo caminho do seu ícone
+              alt="Ícone"
+              className="h-20 w-16" // Tamanho aumentado
+            />
+          </span>
+
           {/* Renderização do título "OFICIAL" */}
           <h1 className="text-[40px] font-normal text-[#003476]">OFICIAL</h1>
         </div>
