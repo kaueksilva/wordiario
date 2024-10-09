@@ -13,6 +13,9 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import Content from 'components/Content';
 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faPrint, faFilePdf } from '@fortawesome/free-solid-svg-icons';
+
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post, socialImage, related }) {
