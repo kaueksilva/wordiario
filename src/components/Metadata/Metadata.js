@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 import { categoryPathBySlug } from 'lib/categories';
 import { authorPathByName } from 'lib/users';
 import { formatDate } from 'lib/datetime';

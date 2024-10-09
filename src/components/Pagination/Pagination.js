@@ -56,7 +56,7 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
       <nav className={styles.nav} role="navigation" aria-label="Pagination Navigation">
         {hasPreviousPage && (
           <Link className={styles.prev} href={`${path}${currentPage - 1}`} aria-label="Goto Previous Page">
-            <PreviousIcon /> Previous
+            <PreviousIcon /> Anterior
           </Link>
         )}
 
