@@ -91,7 +91,7 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
 
         {hasNextPage && (
           <Link className={styles.next} href={`${path}${currentPage + 1}`} aria-label="Goto Next Page">
-            Next <NextIcon />
+            Próximo <NextIcon />
           </Link>
         )}
       </nav>

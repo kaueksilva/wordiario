@@ -7,6 +7,7 @@ import { helmetSettingsFromMetadata } from 'lib/site';
 
 import Nav from 'components/Nav';
 import Main from 'components/Main';
+import ScrollToTop from 'components/ScrollToTop';
 import Footer from 'components/Footer';
 
 const Layout = ({ children }) => {
@@ -55,6 +56,8 @@ const Layout = ({ children }) => {
       <Nav />
 
       <Main>{children}</Main>
+
+      <ScrollToTop />
 
       <Footer />
     </div>
