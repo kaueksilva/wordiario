@@ -4,7 +4,7 @@ import styles from './Container.module.scss';
 const Container = ({ children, className }) => {
   const containerClassName = new ClassName(styles.container);
 
-  containerClassName.addIf(className, className);
+  containerClassName.addIf(className);
 
   return <div className={containerClassName.toString()}>{children}</div>;
 };
