@@ -23,20 +23,14 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
   function getPages() {
     let pages = pagesCount;
     let start = 0;
-    // If the number of pages exceeds the max
     if (pagesCount > MAX_NUM_PAGES) {
-      // Set number of pages to the max
       pages = MAX_NUM_PAGES;
       const half = Math.ceil(MAX_NUM_PAGES / 2);
       const isHead = currentPage <= half;
       const isTail = currentPage > pagesCount - half;
       hasNextDots = !isTail;
-      // If the current page is at the head, the start variable remains 0
       if (!isHead) {
         hasPrevDots = true;
-        // If the current page is at the tail, the start variable is set to
-        // the last chunk. Otherwise the start variable will place the current
-        // page at the middle
         start = isTail ? pagesCount - MAX_NUM_PAGES : currentPage - half;
       }
     }
@@ -90,7 +84,7 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
         </ul>
 
         {hasNextPage && (
-          <Link className={styles.next} href={`${path}${currentPage + 1}`} aria-label="Goto Next Page">
+          <Link className={styles.next} href={`${path}${currentPage + 1}`} aria-label="Go to Next Page">
             Next <NextIcon />
           </Link>
         )}

@@ -3,7 +3,6 @@ import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 import Metadata from 'components/Metadata';
 import { FaMapPin } from 'react-icons/fa';
 import styles from './PostCard.module.scss';
-
 // Função para formatar a data
 const formatDate = (dateString) =>
   new Date(dateString).toLocaleDateString('pt-BR', {

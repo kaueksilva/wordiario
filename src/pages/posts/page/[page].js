@@ -1,5 +1,6 @@
 import { getPaginatedPosts } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
+import Header from 'components/Header';
 
 import TemplateArchive from 'templates/archive';
 
@@ -14,7 +15,12 @@ export default function Posts({ posts, pagination }) {
     },
   });
 
-  return <TemplateArchive title={title} posts={posts} slug={slug} pagination={pagination} metadata={metadata} />;
+  return (
+    <>
+      <Header />
+      <TemplateArchive title={title} posts={posts} slug={slug} pagination={pagination} metadata={metadata} />
+    </>
+  );
 }
 
 export async function getStaticProps({ params = {} } = {}) {
