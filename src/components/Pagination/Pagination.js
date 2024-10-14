@@ -84,8 +84,8 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
         </ul>
 
         {hasNextPage && (
-          <Link className={styles.next} href={`${path}${currentPage + 1}`} aria-label="Go to Next Page">
-            Next <NextIcon />
+          <Link className={styles.next} href={`${path}${currentPage + 1}`} aria-label="Goto Next Page">
+            Próximo <NextIcon />
           </Link>
         )}
       </nav>
