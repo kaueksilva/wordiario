@@ -24,7 +24,7 @@ export function useSiteContext(data) {
   };
 }
 
-/**
+/*
  * useSite
  */
 

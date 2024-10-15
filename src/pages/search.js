@@ -40,7 +40,6 @@ export default function Search() {
   );
 }
 
-// Next.js method to ensure a static page gets rendered
 export async function getStaticProps() {
   return {
     props: {},
