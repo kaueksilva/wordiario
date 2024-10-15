@@ -167,35 +167,59 @@ const Menu = () => {
           {/* Top Menu */}
           <div className="top-menu fixed top-0 w-full z-50 bg-[#003470] p-1.5 flex justify-center lg:justify-between">
             <div className="icones flex ml-10 gap-5">
-              <i className="ri-twitter-x-line text-white text-[17px]"></i>
-              <i className="ri-facebook-circle-fill text-white text-[17px]"></i>
-              <i className="ri-instagram-line text-white text-[17px]"></i>
-              <i className="ri-youtube-fill text-white text-[17px]"></i>
+              <a href="https://x.com/jaboataoonline" target="_blank">
+                <i className="ri-twitter-x-line text-white text-[17px]"></i>
+              </a>
+              <a href="https://www.facebook.com/PrefeituradoJaboatao" target="_blank">
+                <i className="ri-facebook-circle-fill text-white text-[17px]"></i>
+              </a>
+              <a href="https://www.instagram.com/prefjaboatao/" target="_blank">
+                <i className="ri-instagram-line text-white text-[17px]"></i>
+              </a>
+              <a href="https://www.youtube.com/prefeiturajaboatao" target="_blank">
+                <i className="ri-youtube-fill text-white text-[17px]"></i>
+              </a>
             </div>
             <div className="flex items-center justify-center h-full">
               <ul className="menu-topo hidden lg:flex gap-3 mr-11 font-open-sans items-center justify-center">
                 <li className="nav-topo flex items-center">
-                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                  <a
+                    href="https://jaboatao.pe.gov.br/"
+                    target="_blank"
+                    className="nav-link text-white text-[12px] hover:underline"
+                  >
                     Site Oficial
                   </a>
                 </li>
                 <li className="nav-topo flex items-center">
-                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                  <a
+                    href="https://ouvidoria.jaboatao.pe.gov.br/"
+                    target="_blank"
+                    className="nav-link text-white text-[12px] hover:underline"
+                  >
                     Ouvidoria
                   </a>
                 </li>
                 <li className="nav-topo flex items-center">
-                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                  <a
+                    href="http://portaldatransparencia.jaboatao.pe.gov.br/"
+                    target="_blank"
+                    className="nav-link text-white text-[12px] hover:underline"
+                  >
                     Portal da Transparência
                   </a>
                 </li>
                 <li className="nav-topo flex items-center">
-                  <a href="#" className="nav-link text-white text-[12px] hover:underline">
+                  <a
+                    href="https://www.tinus.com.br/csp/JABOATAO/portal/index.csp"
+                    target="_blank"
+                    className="nav-link text-white text-[12px] hover:underline"
+                  >
                     Portal do Contribuinte
                   </a>
                 </li>
                 <li className="flex items-center">
-                  <a href="#" className="icone-amarelo">
+                  <a href="https://eouve.com.br/" target="_blank" className="icone-amarelo">
                     <Image src="/images/iconamarelo.png" alt="foto amarela" width={20} height={20} />
                   </a>
                 </li>

@@ -1,5 +1,5 @@
 @import "styles/settings/__settings";
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&display=swap");
 
 @media (min-width: 1500px) {
   .footer {
@@ -53,6 +53,12 @@
     margin-bottom: 5px;
   }
 
+  .footerlist li a {
+    font-family: "Open Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
   .iconesfooter {
     color: white;
     display: flex;
@@ -61,11 +67,15 @@
   }
 
   .partebranca {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 500;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     background-color: #f8f8f8;
   }
 
@@ -95,7 +105,7 @@
   }
 
   .footerlist a {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     font-size: 15px;
     font-weight: 400;
     line-height: 10px;
@@ -107,8 +117,8 @@
     text-decoration: underline;
   }
 
-  .footertitle{
-    font-family: 'Open Sans', sans-serif;
+  .footertitle {
+    font-family: "Open Sans", sans-serif;
     font-weight: 600;
     line-height: 20px;
     font-size: 20px;
@@ -331,7 +341,6 @@
     text-decoration: underline;
   }
 
-
   .footercolumn3 .footertitle a {
     text-decoration: none;
   }
@@ -349,4 +358,3 @@
     color: #fff; /* Muda a cor do ícone para branco no hover */
   }
 }
-

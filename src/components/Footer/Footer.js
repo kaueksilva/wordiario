@@ -11,49 +11,79 @@ const Footer = () => {
             <h4 className={styles.footerborder}></h4>
             <ul className={styles.footerlist}>
               <li>
-                <a href="http://example.com/mapa-estrategia">MAPA DA ESTRATÉGIA</a>
+                <a href="https://jaboatao.pe.gov.br/mapa-da-estrategia/" target="_blank">
+                  MAPA DA ESTRATÉGIA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/portal-transparencia">PORTAL DA TRANSPARÊNCIA</a>
+                <a href="https://portaldatransparencia.jaboatao.pe.gov.br/" target="_blank">
+                  PORTAL DA TRANSPARÊNCIA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/estrutura-organizacional">ESTRUTURA ORGANIZACIONAL</a>
+                <a href="https://portaldatransparencia.jaboatao.pe.gov.br/estrutura-organizacional/" target="_blank">
+                  ESTRUTURA ORGANIZACIONAL
+                </a>
               </li>
               <li>
-                <a href="http://example.com/galeria-elogios">GALERIA DE ELOGIOS</a>
+                <a href="https://jaboatao.pe.gov.br/galeria-de-elogios/" target="_blank">
+                  GALERIA DE ELOGIOS
+                </a>
               </li>
               <li>
-                <a href="http://example.com/cidadao">CIDADÃO</a>
+                <a href="https://jaboatao.pe.gov.br/servicos-para-o-cidadao/" target="_blank">
+                  CIDADÃO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/cartas-servico">CARTAS DE SERVIÇO</a>
+                <a href="https://jaboatao.pe.gov.br/carta-de-servicos/" target="_blank">
+                  CARTAS DE SERVIÇO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/empresa">EMPRESA</a>
+                <a href="https://jaboatao.pe.gov.br/servicos-para-a-empresa/" target="_blank">
+                  EMPRESA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/servidor">SERVIDOR</a>
+                <a href="https://servidor.jaboatao.pe.gov.br/" target="_blank">
+                  SERVIDOR
+                </a>
               </li>
               <li>
-                <a href="http://example.com/turista">TURISTA</a>
+                <a href="https://jaboatao.pe.gov.br/servicos-para-o-turista/" target="_blank">
+                  TURISTA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/ppp-saude">PPP-SAUDE</a>
+                <a href="https://jaboatao.pe.gov.br/ppp-saude/" target="_blank">
+                  PPP-SAUDE
+                </a>
               </li>
               <li>
-                <a href="http://example.com/mapa-escolas-municipais">MAPA DAS ESCOLAS MUNICIPAIS</a>
+                <a href="https://jaboatao.pe.gov.br/mapa-das-escolas/" target="_blank">
+                  MAPA DAS ESCOLAS MUNICIPAIS
+                </a>
               </li>
               <li>
-                <a href="http://example.com/mapa-unidades-saude">MAPA DAS UNIDADES DE SAÚDE POR REGIONAIS</a>
+                <a href="https://jaboatao.pe.gov.br/mapas-das-unidades-de-saude-por-regional/" target="_blank">
+                  MAPA DAS UNIDADES DE SAÚDE POR REGIONAIS
+                </a>
               </li>
               <li>
-                <a href="http://example.com/mapa-bares-restaurantes">MAPA DOS BARES E RESTAURANTES</a>
+                <a href="https://jaboatao.pe.gov.br/mapa-dos-bares-e-restaurantes/" target="_blank">
+                  MAPA DOS BARES E RESTAURANTES
+                </a>
               </li>
               <li>
-                <a href="http://example.com/mapa-mercados-publicos">MAPA DOS MERCADOS PÚBLICOS</a>
+                <a href="https://jaboatao.pe.gov.br/mapa-mercados-publicos/" target="_blank">
+                  MAPA DOS MERCADOS PÚBLICOS
+                </a>
               </li>
               <li>
-                <a href="http://example.com/mapa-unidades-cras-creas">MAPA DAS UNIDADES DO CRAS E CREAS MUNICIPAIS</a>
+                <a href="https://jaboatao.pe.gov.br/mapa-das-unidades-do-cras-e-creas-municipais/" target="_blank">
+                  MAPA DAS UNIDADES DO CRAS E CREAS MUNICIPAIS
+                </a>
               </li>
             </ul>
           </div>
@@ -63,64 +93,104 @@ const Footer = () => {
             <h4 className={styles.footerborder}></h4>
             <ul className={styles.footerlist}>
               <li>
-                <a href="http://example.com/amor-jaboatao">AMOR JABOATÃO</a>
+                <a href="https://amorpor.jaboatao.pe.gov.br/" target="_blank">
+                  AMOR JABOATÃO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/bem-estar-animal">BEM ESTAR ANIMAL</a>
+                <a href="https://bemestaranimal.jaboatao.pe.gov.br/" target="_blank">
+                  BEM ESTAR ANIMAL
+                </a>
               </li>
               <li>
-                <a href="http://example.com/conselho-usuarios">CONSELHO DE USUÁRIOS</a>
+                <a href="https://conselhodeusuarios.jaboatao.pe.gov.br/" target="_blank">
+                  CONSELHO DE USUÁRIOS
+                </a>
               </li>
               <li>
-                <a href="http://example.com/de-olho-na-consulta">DE OLHO NA CONSULTA</a>
+                <a href="https://deolhonaconsulta.jaboatao.pe.gov.br/" target="_blank">
+                  DE OLHO NA CONSULTA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/diario-oficial">DIÁRIO OFICIAL</a>
+                <a href="https://diariooficial.jaboatao.pe.gov.br/" target="_blank">
+                  DIÁRIO OFICIAL
+                </a>
               </li>
               <li>
-                <a href="http://example.com/educacao">EDUCAÇÃO</a>
+                <a href="https://educacao.jaboatao.pe.gov.br/" target="_blank">
+                  EDUCAÇÃO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/economia-criativa">ECONOMIA CRIATIV</a>
+                <a href="https://economiacriativa.jaboatao.pe.gov.br/" target="_blank">
+                  ECONOMIA CRIATIVA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/emlume">EMLUME</a>
+                <a href="https://emlume.com.br/" target="_blank">
+                  EMLUME
+                </a>
               </li>
               <li>
-                <a href="http://example.com/estacao-bem-estar">ESTAÇÃO BEM ESTAR</a>
+                <a href="https://estacaobemestar.jaboatao.pe.gov.br/" target="_blank">
+                  ESTAÇÃO BEM ESTAR
+                </a>
               </li>
               <li>
-                <a href="http://example.com/jaboatao-em-acao">JABOATÃO EM AÇÃO</a>
+                <a href="https://jaboataoemacao.jaboatao.pe.gov.br/" target="_blank">
+                  JABOATÃO EM AÇÃO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/jaboataoprev">JABOATAOPREV</a>
+                <a href="https://jaboataoprev.jaboatao.pe.gov.br/" target="_blank">
+                  JABOATAOPREV
+                </a>
               </li>
               <li>
-                <a href="http://example.com/meio-ambiente">MEIO AMBIENTE</a>
+                <a href="https://semam.jaboatao.pe.gov.br/" target="_blank">
+                  MEIO AMBIENTE
+                </a>
               </li>
               <li>
-                <a href="http://example.com/oficial">OFICIAL</a>
+                <a href="https://jaboatao.pe.gov.br/" target="_blank">
+                  OFICIAL
+                </a>
               </li>
               <li>
-                <a href="http://example.com/ouvidoria">OUVIDORIA</a>
+                <a href="https://ouvidoria.jaboatao.pe.gov.br/" target="_blank">
+                  OUVIDORIA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/portal-contribuinte">PORTAL DO CONTRIBUINTE</a>
+                <a href="https://www.tinus.com.br/csp/JABOATAO/portal/index.csp" target="_blank">
+                  PORTAL DO CONTRIBUINTE
+                </a>
               </li>
               <li>
-                <a href="http://example.com/portal-transparencia">PORTAL DA TRANSPARÊNCIA</a>
+                <a href="https://portaldatransparencia.jaboatao.pe.gov.br/" target="_blank">
+                  PORTAL DA TRANSPARÊNCIA
+                </a>
               </li>
               <li>
-                <a href="http://example.com/procon">PROCON</a>
+                <a href="https://procon.jaboatao.pe.gov.br/" target="_blank">
+                  PROCON
+                </a>
               </li>
               <li>
-                <a href="http://example.com/servidor">SERVIDOR</a>
+                <a href="https://servidor.jaboatao.pe.gov.br/" target="_blank">
+                  SERVIDOR
+                </a>
               </li>
               <li>
-                <a href="http://example.com/trabalho">TRABALHO</a>
+                <a href="https://trabalho.jaboatao.pe.gov.br/" target="_blank">
+                  TRABALHO
+                </a>
               </li>
               <li>
-                <a href="http://example.com/viver">VIVER</a>
+                <a href="https://viver.jaboatao.pe.gov.br/" target="_blank">
+                  VIVER
+                </a>
               </li>
             </ul>
           </div>
@@ -140,7 +210,12 @@ const Footer = () => {
             <h4 className={styles.footerborder}></h4>
             <ul className={styles.footerlist}>
               <li>
-                <a href="http://example.com/informacoes">INFORMAÇÕES</a>
+                <a
+                  href="https://portaldatransparencia.jaboatao.pe.gov.br/informacoes-de-acessibilidade/"
+                  target="_blank"
+                >
+                  INFORMAÇÕES
+                </a>
               </li>
             </ul>
 
@@ -152,7 +227,9 @@ const Footer = () => {
 
             <ul className={styles.footerlist}>
               <li>
-                <a href="http://example.com/glossario">GLOSSÁRIO</a>
+                <a href="https://jaboatao.pe.gov.br/glossario/" target="_blank">
+                  GLOSSÁRIO
+                </a>
               </li>
             </ul>
 
@@ -163,24 +240,28 @@ const Footer = () => {
             <div className={styles.iconesfooter}>
               <a
                 href="https://twitter.com/jaboataoonline"
+                target="_blank"
                 className="group flex items-center justify-center w-8 h-8 rounded-full bg-transparent transition-colors duration-300 text-white hover:bg-white"
               >
                 <i className="ri-twitter-x-line text-2xl text-white transition-colors duration-300 group-hover:text-blue-900"></i>
               </a>
               <a
                 href="https://www.facebook.com/PrefeituradoJaboatao"
+                target="_blank"
                 className="group flex items-center justify-center w-8 h-8 rounded-full bg-transparent transition-colors duration-300 text-white hover:bg-white"
               >
                 <i className="ri-facebook-circle-fill text-2xl text-white transition-colors duration-300 group-hover:text-blue-900"></i>
               </a>
               <a
                 href="https://www.instagram.com/prefjaboatao/"
+                target="_blank"
                 className="group flex items-center justify-center w-8 h-8 rounded-full bg-transparent transition-colors duration-300 text-white hover:bg-white"
               >
                 <i className="ri-instagram-line text-2xl text-white transition-colors duration-300 group-hover:text-blue-900"></i>
               </a>
               <a
                 href="https://www.youtube.com/user/prefeiturajaboatao/videos"
+                target="_blank"
                 className="group flex items-center justify-center w-8 h-8 rounded-full bg-transparent transition-colors duration-300 text-white hover:bg-white"
               >
                 <i className="ri-youtube-fill text-2xl text-white transition-colors duration-300 group-hover:text-blue-900"></i>
