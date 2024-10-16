@@ -79,8 +79,7 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
 
   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
-  /**
-   * handleSearch
+  /* handleSearch
    */
 
   function handleSearch({ query }) {
