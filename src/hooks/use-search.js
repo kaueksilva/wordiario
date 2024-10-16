@@ -63,7 +63,8 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
 
   let results = [];
 
-  // Se tivermos uma consulta, faça uma busca. Caso contrário, não modifique os resultados para evitar retornar resultados vazios
+  // Se tivermos uma consulta, faça uma busca.
+  // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
 
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
