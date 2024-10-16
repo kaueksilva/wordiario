@@ -73,8 +73,8 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
     results = results.slice(0, maxResults);
   }
 
-  // If the defaultQuery argument changes, the hook should reflect
-  // that update and set that as the new state
+  // Se o argumento defaultQuery mudar, o hook deve refletir
+  // essa atualização e definir isso como o novo estado
 
   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
