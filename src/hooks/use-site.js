@@ -13,7 +13,7 @@ export function useSiteContext(data) {
   let { homepage = '' } = config;
 
   // Corte a barra final do final da página inicial para evitar
-  // problemas de // duplicação em todos os metadados
+  // problemas de duplicação em todos os metadados
 
   homepage = removeLastTrailingSlash(homepage);
 
