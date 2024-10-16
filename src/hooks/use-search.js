@@ -86,8 +86,7 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
     setQuery(query);
   }
 
-  /**
-   * handleClearSearch
+  /*handleClearSearch
    */
 
   function handleClearSearch() {
