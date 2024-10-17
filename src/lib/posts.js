@@ -76,11 +76,6 @@ export async function getPostBySlug(slug) {
     post.metaDescription = seo.metaDesc;
     post.readingTime = seo.readingTime;
 
-    // The SEO plugin by default includes a canonical link, but we don't want to use that
-    // because it includes the WordPress host, not the site host. We manage the canonical
-    // link along with the other metadata, but explicitly check if there's a custom one
-    // in here by looking for the API's host in the provided canonical link
-
     if (seo.canonical && !seo.canonical.includes(apiHost)) {
       post.canonical = seo.canonical;
     }
