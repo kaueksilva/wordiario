@@ -1,5 +1,5 @@
 import { getCategoryBySlug } from 'lib/categories';
-import { getPostsByCategoryId } from 'lib/posts';
+import { getPostsByCategoryId, getPaginatedPosts } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import HeaderSlug from 'components/HeaderSlug';
@@ -7,15 +7,21 @@ import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
 
-export default function Category({ category, posts }) {
-  const { name, description, slug } = category;
+export default function Category({ category, posts, pagination }) {
+  // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
+  const { name, description, slug } = category || {};
 
   const { metadata } = usePageMetadata({
     metadata: {
       ...category,
-      description: description || category.og?.description || `Read ${posts.length} posts from ${name}`,
+      description: description || category?.og?.description || `Read ${posts?.length} posts from ${name}`,
     },
   });
+
+  // Agora você pode checar a existência de 'category' ou 'posts' depois
+  if (!category || !posts) {
+    return <p>Data not available</p>;
+  }
 
   return (
     <>
@@ -30,7 +36,9 @@ export default function Category({ category, posts }) {
             </div>
 
             {/* DIVISOR DE FORMA */}
-            <div className="relative w-full">
+            <div className="relative w-full h-24">
+              {' '}
+              {/* Adicionando altura mínima */}
               <svg width="100%" viewBox="0 0 2000 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   opacity="0.33"
@@ -52,8 +60,14 @@ export default function Category({ category, posts }) {
         </div>
       </HeaderSlug>
 
-      {/* Conteúdo principal */}
-      <TemplateArchive title={name} Title={<Title title={name} />} posts={posts} slug={slug} metadata={metadata} />
+      <TemplateArchive
+        title={name}
+        Title={<Title title={name} />}
+        posts={posts}
+        slug={slug}
+        metadata={metadata}
+        pagination={pagination}
+      />
     </>
   );
 }
@@ -73,10 +87,26 @@ export async function getStaticProps({ params = {} } = {}) {
     queryIncludes: 'archive',
   });
 
+  const { pagination } = await getPaginatedPosts({
+    currentPage: params?.page,
+    queryIncludes: 'archive',
+  });
+
+  if (!pagination?.currentPage) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       category,
       posts,
+      pagination: {
+        ...pagination,
+        basePath: '/posts',
+      },
     },
   };
 }
