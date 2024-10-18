@@ -27,7 +27,10 @@ export const QUERY_ALL_POSTS_INDEX = gql`
   query AllPostsIndex {
     posts(
       first: 10000
-      where: { categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022" }
+      where: {
+        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
+        orderby: { field: DATE, order: DESC }
+      }
     ) {
       nodes {
         ...PostFields
@@ -44,7 +47,10 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
   query AllPostsArchive {
     posts(
       first: 10000
-      where: { categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022" }
+      where: {
+        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
+        orderby: { field: DATE, order: DESC }
+      }
     ) {
       edges {
         node {
