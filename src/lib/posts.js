@@ -139,7 +139,7 @@ export async function getAllPosts(options = {}) {
     query: allPostsIncludesTypes[queryIncludes],
   });
 
-  const posts = data?.data.posts.edges.map(({ node = {} }) => node);
+  const posts = data?.data?.posts?.edges ? data.data.posts.edges.map(({ node = {} }) => node) : [];
 
   return {
     posts: Array.isArray(posts) && posts.map(mapPostData),

@@ -25,11 +25,15 @@ export const POST_FIELDS = gql`
 export const QUERY_ALL_POSTS_INDEX = gql`
   ${POST_FIELDS}
   query AllPostsIndex {
-    posts(first: 10000, where: { hasPassword: false }) {
-      edges {
-        node {
-          ...PostFields
-        }
+    posts(
+      first: 10000
+      where: { categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022" }
+    ) {
+      nodes {
+        ...PostFields
+        title
+        excerpt
+        date
       }
     }
   }
@@ -38,7 +42,10 @@ export const QUERY_ALL_POSTS_INDEX = gql`
 export const QUERY_ALL_POSTS_ARCHIVE = gql`
   ${POST_FIELDS}
   query AllPostsArchive {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(
+      first: 10000
+      where: { categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022" }
+    ) {
       edges {
         node {
           ...PostFields
