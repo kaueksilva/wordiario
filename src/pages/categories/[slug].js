@@ -105,7 +105,7 @@ export async function getStaticProps({ params = {} } = {}) {
       posts,
       pagination: {
         ...pagination,
-        basePath: '/posts',
+        basePath: `/categories/${category.slug}`, // Ajuste o basePath para usar a slug da categoria
       },
     },
   };
