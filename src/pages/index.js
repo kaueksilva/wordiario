@@ -11,7 +11,11 @@ import styles from 'styles/pages/Home.module.scss';
 
 export default function Home({ posts, pagination }) {
   const { metadata = {} } = useSite();
+  console.log(posts);
   const { title } = metadata;
+
+  //filtrando os posts
+  let postsValidos = posts.filter((post) => post.categories[0].name.slice(0, 14) === 'Diário Oficial');
 
   return (
     <Layout>
@@ -19,9 +23,8 @@ export default function Home({ posts, pagination }) {
       <Header />
       <Section>
         <Container>
-          <h2 className="sr-only">Posts</h2>
           <ul className={styles.posts}>
-            {posts.map((post) => {
+            {postsValidos.map((post) => {
               return (
                 <li key={post.slug}>
                   <PostCard post={post} />
