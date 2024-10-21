@@ -391,7 +391,7 @@ const Menu = () => {
                       </li>
                       <li>
                         <a
-                          href=" /categories/diario-oficial-2020-expediente-2"
+                          href=" /categories/diario-oficial-2020"
                           className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2020
