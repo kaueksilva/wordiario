@@ -7,7 +7,7 @@ import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
 
-export default function Category({ category, posts, pagination }) {
+export default function Category({ category, posts }) {
   // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
   const { name, description, slug } = category || {};
 
@@ -66,7 +66,7 @@ export default function Category({ category, posts, pagination }) {
         posts={posts}
         slug={slug}
         metadata={metadata}
-        pagination={pagination}
+        //pagination={pagination} //aparece a paginação no final da página
       />
     </>
   );
