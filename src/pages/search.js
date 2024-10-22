@@ -31,12 +31,15 @@ export default function Search() {
       <Helmet>
         <meta name="robots" content="noindex" />
       </Helmet>
+      <br />
+      <br />
+      <br />
+      <br />
       <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />
     </>
   );
 }
 
-// Next.js method to ensure a static page gets rendered
 export async function getStaticProps() {
   return {
     props: {},

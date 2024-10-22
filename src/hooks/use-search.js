@@ -30,9 +30,6 @@ export function useSearchState() {
     });
   }
 
-  // On load, we want to immediately pull in the search index, which we're
-  // storing clientside and gets built at compile time
-
   useEffect(() => {
     (async function getData() {
       setState(SEARCH_STATE_LOADING);
@@ -66,8 +63,8 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
 
   let results = [];
 
-  // If we have a query, make a search. Otherwise, don't modify the
-  // results to avoid passing back empty results
+  // Se tivermos uma consulta, faça uma busca.
+  // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
 
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
@@ -77,21 +74,19 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
     results = results.slice(0, maxResults);
   }
 
-  // If the defaultQuery argument changes, the hook should reflect
-  // that update and set that as the new state
+  // Se o argumento defaultQuery mudar, o hook deve refletir
+  // essa atualização e definir isso como o novo estado
 
   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
-  /**
-   * handleSearch
+  /* handleSearch
    */
 
   function handleSearch({ query }) {
     setQuery(query);
   }
 
-  /**
-   * handleClearSearch
+  /* handleClearSearch
    */
 
   function handleClearSearch() {

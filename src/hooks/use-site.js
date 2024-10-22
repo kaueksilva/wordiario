@@ -6,15 +6,14 @@ import { removeLastTrailingSlash } from 'lib/util';
 
 export const SiteContext = createContext();
 
-/**
- * useSiteContext
+/* useSiteContext
  */
 
 export function useSiteContext(data) {
   let { homepage = '' } = config;
 
-  // Trim the trailing slash from the end of homepage to avoid
-  // double // issues throughout the metadata
+  // Corte a barra final do final da página inicial para evitar
+  // problemas de duplicação em todos os metadados
 
   homepage = removeLastTrailingSlash(homepage);
 
@@ -24,7 +23,7 @@ export function useSiteContext(data) {
   };
 }
 
-/**
+/*
  * useSite
  */
 

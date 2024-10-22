@@ -51,7 +51,7 @@ export default function Post({ post, socialImage, related }) {
 
   const helmetSettings = helmetSettingsFromMetadata(metadata);
 
-  // CRIAR CONST DE GERAR PDF
+  // Função para gerar PDF
   const generatePDF = () => {
     const doc = new jsPDF();
     doc.setFontSize(16);
@@ -65,18 +65,28 @@ export default function Post({ post, socialImage, related }) {
     doc.save('post.pdf'); // Salva o PDF com o nome 'post.pdf'
   };
 
+  // Função de impressão personalizada
+  const printPostContent = () => {
+    const postContent = document.getElementById('postContent').innerHTML; // Captura o conteúdo do post
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>'); // Estilos de impressão
+    printWindow.document.write('</head><body>');
+    printWindow.document.write(postContent); // Adiciona o conteúdo do post na nova janela
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print(); // Abre a caixa de diálogo de impressão para o conteúdo do post
+    printWindow.close(); // Fecha a janela após a impressão
+  };
+
   return (
     <Layout>
       <Helmet {...helmetSettings} />
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
       <div className="bg-[radial-gradient(circle_at_center,#ffffff,#AFAFAF)] text-white text-4xl font-bold py-8 text-center relative mt-[110px]">
-        {/* Títulos e Imagem em Destaque */}
         <div className="flex justify-center items-center mb-4 flex-wrap">
-          {/* Renderização do título "DIÁRIO" */}
           <h1 className="text-[40px] font-normal text-[#003476]">DIÁRIO</h1>
-
-          {/* Ícone no centro */}
           <span className="mx-9">
             <img
               src="/images/logotop.png" // Substitua pelo caminho do seu ícone
@@ -84,33 +94,28 @@ export default function Post({ post, socialImage, related }) {
               className="h-20 w-16" // Tamanho aumentado
             />
           </span>
-
-          {/* Renderização do título "OFICIAL" */}
           <h1 className="text-[40px] font-normal text-[#003476]">OFICIAL</h1>
         </div>
-
-        {/* Renderização do subtítulo "PODER EXECUTIVO" */}
         <h2 className="text-[15px] font-normal text-[#003476]">PODER EXECUTIVO</h2>
       </div>
 
-      {/* Div para o título principal e metadados */}
       <div className="text-center mt-0">
-        {/* Metadados e Título principal dentro da linha azul */}
         <div className="bg-[#224276] text-white text-center py-4">
-          {/* Título principal */}
           <h1 className="text-[23px] text-[#ffffff] font-bold" dangerouslySetInnerHTML={{ __html: title }} />
         </div>
 
-        {/* GERAR PDF */}
         <div className="flex justify-center space-x-4 my-4">
+          {/* Botão para imprimir o conteúdo */}
           <button
-            onClick={() => window.print()}
+            onClick={printPostContent}
             className="flex items-center space-x-2 bg-[#003476] text-white px-4 py-2 rounded hover:bg-[#002355] transition-colors"
-            aria-label="Imprimir página"
+            aria-label="Imprimir conteúdo do post"
           >
             <FontAwesomeIcon icon={faPrint} className="mr-2" />
             Imprimir
           </button>
+
+          {/* Botão para gerar PDF */}
           <button
             onClick={generatePDF}
             className="flex items-center space-x-2 bg-[#003476] text-white px-4 py-2 rounded hover:bg-[#002355] transition-colors"
@@ -122,10 +127,12 @@ export default function Post({ post, socialImage, related }) {
         </div>
       </div>
 
+      {/* Conteúdo do post */}
       <Content>
         <Section>
           <Container>
             <div
+              id="postContent" // ID para referenciar o conteúdo a ser impresso
               className={styles.content}
               dangerouslySetInnerHTML={{
                 __html: content,

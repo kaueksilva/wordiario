@@ -25,11 +25,18 @@ export const POST_FIELDS = gql`
 export const QUERY_ALL_POSTS_INDEX = gql`
   ${POST_FIELDS}
   query AllPostsIndex {
-    posts(first: 10000, where: { hasPassword: false }) {
-      edges {
-        node {
-          ...PostFields
-        }
+    posts(
+      first: 10000
+      where: {
+        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
+        orderby: { field: DATE, order: DESC }
+      }
+    ) {
+      nodes {
+        ...PostFields
+        title
+        excerpt
+        date
       }
     }
   }
@@ -38,7 +45,13 @@ export const QUERY_ALL_POSTS_INDEX = gql`
 export const QUERY_ALL_POSTS_ARCHIVE = gql`
   ${POST_FIELDS}
   query AllPostsArchive {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(
+      first: 10000
+      where: {
+        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
+        orderby: { field: DATE, order: DESC }
+      }
+    ) {
       edges {
         node {
           ...PostFields
@@ -160,10 +173,11 @@ export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
   }
 `;
 
+/*puxa todos os posts de uma categoria */
 export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
-    posts(where: { categoryId: $categoryId, hasPassword: false }) {
+    posts(first: 10000, where: { categoryId: $categoryId, hasPassword: false }) {
       edges {
         node {
           ...PostFields
