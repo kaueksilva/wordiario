@@ -67,16 +67,33 @@ export default function Post({ post, socialImage, related }) {
 
   // Função de impressão personalizada
   const printPostContent = () => {
-    const postContent = document.getElementById('postContent').innerHTML; // Captura o conteúdo do post
-    const printWindow = window.open('', '', 'width=800,height=600');
-    printWindow.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>'); // Estilos de impressão
+    const postContent = document.getElementById('postContent').innerHTML;
+    const publicationDate = new Date().toLocaleDateString() + ', ' + new Date().toLocaleTimeString();
+
+    const postTitle = title;
+
+    // Mantém o about:blank ao abrir a nova aba
+    const printWindow = window.open('about:blank', '', 'width=950,height=700');
+
+    // Define o título da aba na nova janela
+    printWindow.document.write('<head><title>' + postTitle + '</title></head>');
+
+    printWindow.document.write('<style> body { font-family: Arial, sans-serif; padding: 20px; } </style>');
     printWindow.document.write('</head><body>');
-    printWindow.document.write(postContent); // Adiciona o conteúdo do post na nova janela
+
+    printWindow.document.write(`<h1 class="title">${postTitle}</h1>`);
+
+    printWindow.document.write(postContent);
+
+    printWindow.document.write(`<p>Publicado em: ${publicationDate}</p>`);
+
+    printWindow.document.write('</footer>');
     printWindow.document.write('</body></html>');
+
     printWindow.document.close();
     printWindow.focus();
-    printWindow.print(); // Abre a caixa de diálogo de impressão para o conteúdo do post
-    printWindow.close(); // Fecha a janela após a impressão
+    printWindow.print();
+    printWindow.close();
   };
 
   return (
