@@ -94,7 +94,9 @@ export default function Post({ post, socialImage, related }) {
     // Define o título da aba na nova janela
     printWindow.document.write('<head><title>' + postTitle + '</title></head>');
 
-    printWindow.document.write('<style> body { font-family: Arial, sans-serif; padding: 20px; } </style>');
+    printWindow.document.write(
+      '<style> body { font-family: Arial, sans-serif; padding: 20px; } @media print { #printButton { display: none;} .pdfprnt-buttons { display: none;} } </style>'
+    );
     printWindow.document.write('</head><body>');
 
     printWindow.document.write(`<h1 class="title">${postTitle}</h1>`);
