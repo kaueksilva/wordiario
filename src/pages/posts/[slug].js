@@ -54,13 +54,29 @@ export default function Post({ post, socialImage, related }) {
   // Função para gerar PDF
   const generatePDF = () => {
     const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text(title, 10, 10); // Adiciona o título do post no PDF
+    const marginLeft = 10;
+    const marginTop = 10;
+    const lineHeight = 7;
+    const pageHeight = doc.internal.pageSize.height;
+    let currentHeight = marginTop;
+
+    doc.setFontSize(14);
+    doc.text(title, marginLeft, currentHeight); // Adiciona o título do post no PDF
+    currentHeight += lineHeight + 5; // Ajusta a posição do texto para a próxima linha
 
     doc.setFontSize(12);
     const contentWithoutHTML = content.replace(/(<([^>]+)>)/gi, ''); // Remove as tags HTML
     const splitContent = doc.splitTextToSize(contentWithoutHTML, 190); // Divide o texto para caber na página
-    doc.text(splitContent, 10, 20); // Adiciona o conteúdo no PDF
+
+    // Adiciona cada linha de texto, gerenciando o overflow da página
+    splitContent.forEach((line) => {
+      if (currentHeight + lineHeight > pageHeight - marginTop) {
+        doc.addPage(); // Adiciona uma nova página se o conteúdo ultrapassar o limite da página
+        currentHeight = marginTop; // Reinicia a altura na nova página
+      }
+      doc.text(line, marginLeft, currentHeight);
+      currentHeight += lineHeight;
+    });
 
     doc.save('post.pdf'); // Salva o PDF com o nome 'post.pdf'
   };
