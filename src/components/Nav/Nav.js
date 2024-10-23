@@ -1,24 +1,11 @@
 'use client';
 import Image from 'next/image';
-// import styles from './Nav.module.scss';
 import { FaPlus } from 'react-icons/fa';
 import { FaMinus } from 'react-icons/fa';
 import { IoIosArrowDown } from 'react-icons/io';
-import { FaSearch } from 'react-icons/fa';
+import Search from '../Search';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
-import Link from 'next/link';
-
-// import useSite from 'hooks/use-site';
-import useSearch, { SEARCH_STATE_LOADED } from 'hooks/use-search';
-import { postPathBySlug } from 'lib/posts';
-// import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
-
-// import Section from 'components/Section';
-// import NavListItem from 'components/NavListItem';
-
-const SEARCH_VISIBLE = 'visible';
-const SEARCH_HIDDEN = 'hidden';
+import { useState } from 'react';
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,124 +24,6 @@ const Menu = () => {
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
-
-  // {/*Search*/}
-  const formRef = useRef();
-
-  const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
-
-  // const { metadata = {}, menus } = useSite();
-  // const { title } = metadata;
-
-  // const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
-  // const navigation = findMenuByLocation(menus, navigationLocation);
-
-  const { query, results, search, clearSearch, state } = useSearch({
-    maxResults: 5,
-  });
-
-  const searchIsLoaded = state === SEARCH_STATE_LOADED;
-
-  // When the search visibility changes, we want to add an event listener that allows us to
-  // detect when someone clicks outside of the search box, allowing us to close the results
-  // when focus is drawn away from search
-
-  useEffect(() => {
-    // If we don't have a query, don't need to bother adding an event listener
-    // but run the cleanup in case the previous state instance exists
-
-    if (searchVisibility === SEARCH_HIDDEN) {
-      removeDocumentOnClick();
-      return;
-    }
-
-    addDocumentOnClick();
-    addResultsRoving();
-
-    const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search');
-
-    searchInput.focus();
-
-    return () => {
-      removeResultsRoving();
-      removeDocumentOnClick();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVisibility]);
-
-  function addDocumentOnClick() {
-    document.body.addEventListener('click', handleOnDocumentClick, true);
-  }
-
-  function removeDocumentOnClick() {
-    document.body.removeEventListener('click', handleOnDocumentClick, true);
-  }
-
-  function handleOnDocumentClick(e) {
-    if (!e.composedPath().includes(formRef.current)) {
-      setSearchVisibility(SEARCH_HIDDEN);
-      clearSearch();
-    }
-  }
-
-  function handleOnSearch({ currentTarget }) {
-    search({
-      query: currentTarget.value,
-    });
-  }
-
-  function handleOnToggleSearch() {
-    setSearchVisibility(SEARCH_VISIBLE);
-  }
-
-  function addResultsRoving() {
-    document.body.addEventListener('keydown', handleResultsRoving);
-  }
-
-  function removeResultsRoving() {
-    document.body.removeEventListener('keydown', handleResultsRoving);
-  }
-
-  function handleResultsRoving(e) {
-    const focusElement = document.activeElement;
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (focusElement.nodeName === 'INPUT' && focusElement.nextSibling.children[0].nodeName !== 'P') {
-        focusElement.nextSibling.children[0].firstChild.firstChild.focus();
-      } else if (focusElement.parentElement.nextSibling) {
-        focusElement.parentElement.nextSibling.firstChild.focus();
-      } else {
-        focusElement.parentElement.parentElement.firstChild.firstChild.focus();
-      }
-    }
-
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (focusElement.nodeName === 'A' && focusElement.parentElement.previousSibling) {
-        focusElement.parentElement.previousSibling.firstChild.focus();
-      } else {
-        focusElement.parentElement.parentElement.lastChild.firstChild.focus();
-      }
-    }
-  }
-
-  const escFunction = useCallback((event) => {
-    if (event.keyCode === 27) {
-      clearSearch();
-      setSearchVisibility(SEARCH_HIDDEN);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    document.addEventListener('keydown', escFunction, false);
-
-    return () => {
-      document.removeEventListener('keydown', escFunction, false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <div>
@@ -442,66 +311,9 @@ const Menu = () => {
                 </li>
 
                 {/* Busca */}
-                <li className="border-b border-gray-100">
-                  <div className="flex items-center justify-center flex-col h-full lg:flex-row lg:justify-between">
-                    {/* Ícone de Busca */}
-                    <div className="flex items-center justify-center flex-grow-0">
-                      <button
-                        onClick={handleOnToggleSearch}
-                        disabled={!searchIsLoaded}
-                        className="bg-none border-none outline-none cursor-pointer flex items-center justify-center"
-                      >
-                        <span className="sr-only">Toggle Search</span>
-                        <FaSearch className={`fill-gray-400 ${!searchIsLoaded ? 'fill-gray-200' : ''}`} />
-                      </button>
-                    </div>
-
-                    {/* Campo de Busca sobreposto abaixo do Menu */}
-                    {searchVisibility === SEARCH_VISIBLE && (
-                      <div className="absolute top-full right-0 bg-gray-50 p-4 shadow-lg z-50 border-t-[3px] border-[#7baeff]">
-                        <form
-                          ref={formRef}
-                          action="/search"
-                          data-search-is-active={!!query}
-                          className="flex items-center justify-center relative w-full"
-                        >
-                          <input
-                            type="search"
-                            name="q"
-                            value={query || ''}
-                            onChange={handleOnSearch}
-                            autoComplete="off"
-                            placeholder="Pesquisar..."
-                            required
-                            className="text-sm w-full p-2 border border-gray-300 rounded-md"
-                          />
-                          <div
-                            className={`absolute top-full right-0 w-full lg:w-[30em] bg-white shadow-md border-t-4 border-primary z-50 
-                              ${query ? 'block' : 'hidden'}`}
-                          >
-                            {results.length > 0 ? (
-                              <ul className="list-none border-t-[3px] border-[#7baeff]">
-                                {results.map(({ slug, title }, index) => (
-                                  <li key={slug} className="p-1 -mx-2">
-                                    <Link
-                                      tabIndex={index}
-                                      href={postPathBySlug(slug)}
-                                      className="block text-gray-800 no-underline p-2 focus:outline focus:outline-blue-500 hover:text-primary"
-                                    >
-                                      {title}
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            ) : (
-                              <p className="leading-[1.15] m-0">
-                                Sorry, not finding anything for <strong>{query}</strong>
-                              </p>
-                            )}
-                          </div>
-                        </form>
-                      </div>
-                    )}
+                <li>
+                  <div className="ml-[-20px]">
+                    <Search />
                   </div>
                 </li>
               </ul>
@@ -659,6 +471,11 @@ const Menu = () => {
                       </li>
                     </ul>
                   )}
+                </li>
+                <li>
+                  <div>
+                    <Search />
+                  </div>
                 </li>
               </ul>
               <button onClick={toggleMenu} className="mt-10 text-[24px]">
