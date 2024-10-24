@@ -1,6 +1,11 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { QUERY_ALL_CATEGORIES, QUERY_CATEGORY_BY_SLUG, QUERY_CATEGORY_SEO_BY_SLUG } from 'data/categories';
+import {
+  QUERY_ALL_CATEGORIES,
+  QUERY_CATEGORY_BY_SLUG,
+  QUERY_CATEGORY_SEO_BY_SLUG,
+  QUERY_POSTS_MONTHS,
+} from 'data/categories';
 
 /**
  * categoryPathBySlug
@@ -26,6 +31,28 @@ export async function getAllCategories() {
   return {
     categories,
   };
+}
+
+// BUSCAR POSTS DE ACORDO COM O MÊS E ANO
+
+export async function getpostsPerMonth() {
+  try {
+    const apolloClient = getApolloClient();
+
+    const data = await apolloClient.query({
+      query: QUERY_POSTS_MONTHS,
+    });
+
+    // const categories = data?.data.categories.edges.map(({ node = {} }) => node);
+
+    console.log(`Sucesso! dados: ${data}`);
+    return {
+      data,
+    };
+  } catch (e) {
+    console.log('O erro é o segunite ' + e);
+    return e;
+  }
 }
 
 /**

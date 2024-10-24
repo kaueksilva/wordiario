@@ -64,14 +64,7 @@ export default function Category({ category, posts }) {
       {/* Adicionando a listinha de meses abaixo do cabeçalho */}
       <MonthList />
 
-      <TemplateArchive
-        title={name}
-        Title={<Title title={name} />}
-        posts={posts}
-        slug={slug}
-        metadata={metadata}
-        //pagination={pagination} //aparece a paginação no final da página
-      />
+      <TemplateArchive title={name} Title={<Title title={name} />} posts={posts} slug={slug} metadata={metadata} />
     </>
   );
 }

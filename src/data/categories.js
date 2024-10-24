@@ -67,3 +67,26 @@ export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
     }
   }
 `;
+
+export const QUERY_POSTS_MONTHS = gql`
+  query AllPostsIndex($before: String!, $after: String!) {
+    posts(
+      where: {
+        categoryName: "Diário Oficial | 2024"
+        orderby: { field: DATE, order: DESC }
+        dateQuery: {
+          after: $after # Variável "after"
+          before: $before # Variável "before"
+          inclusive: true
+        }
+      }
+      first: 50
+    ) {
+      nodes {
+        title
+        excerpt
+        date
+      }
+    }
+  }
+`;
