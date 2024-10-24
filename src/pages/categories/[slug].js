@@ -6,6 +6,7 @@ import HeaderSlug from 'components/HeaderSlug';
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
+import MonthList from '../../components/Meses';
 
 export default function Category({ category, posts }) {
   // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
@@ -59,6 +60,9 @@ export default function Category({ category, posts }) {
           </div>
         </div>
       </HeaderSlug>
+
+      {/* Adicionando a listinha de meses abaixo do cabeçalho */}
+      <MonthList />
 
       <TemplateArchive
         title={name}
