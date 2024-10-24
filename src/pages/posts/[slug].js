@@ -54,64 +54,29 @@ export default function Post({ post, socialImage, related }) {
   // Função para gerar PDF
   const generatePDF = () => {
     const doc = new jsPDF();
-    const marginLeft = 10;
-    const marginTop = 10;
-    const lineHeight = 7;
-    const pageHeight = doc.internal.pageSize.height;
-    let currentHeight = marginTop;
-
-    doc.setFontSize(14);
-    doc.text(title, marginLeft, currentHeight); // Adiciona o título do post no PDF
-    currentHeight += lineHeight + 5; // Ajusta a posição do texto para a próxima linha
+    doc.setFontSize(16);
+    doc.text(title, 10, 10); // Adiciona o título do post no PDF
 
     doc.setFontSize(12);
     const contentWithoutHTML = content.replace(/(<([^>]+)>)/gi, ''); // Remove as tags HTML
     const splitContent = doc.splitTextToSize(contentWithoutHTML, 190); // Divide o texto para caber na página
-
-    // Adiciona cada linha de texto, gerenciando o overflow da página
-    splitContent.forEach((line) => {
-      if (currentHeight + lineHeight > pageHeight - marginTop) {
-        doc.addPage(); // Adiciona uma nova página se o conteúdo ultrapassar o limite da página
-        currentHeight = marginTop; // Reinicia a altura na nova página
-      }
-      doc.text(line, marginLeft, currentHeight);
-      currentHeight += lineHeight;
-    });
+    doc.text(splitContent, 10, 20); // Adiciona o conteúdo no PDF
 
     doc.save('post.pdf'); // Salva o PDF com o nome 'post.pdf'
   };
 
   // Função de impressão personalizada
   const printPostContent = () => {
-    const postContent = document.getElementById('postContent').innerHTML;
-    const publicationDate = new Date().toLocaleDateString() + ', ' + new Date().toLocaleTimeString();
-
-    const postTitle = title;
-
-    // Mantém o about:blank ao abrir a nova aba
-    const printWindow = window.open('about:blank', '', 'width=950,height=700');
-
-    // Define o título da aba na nova janela
-    printWindow.document.write('<head><title>' + postTitle + '</title></head>');
-
-    printWindow.document.write(
-      '<style> body { font-family: Arial, sans-serif; padding: 20px; } @media print { #printButton { display: none;} .pdfprnt-buttons { display: none;} } </style>'
-    );
+    const postContent = document.getElementById('postContent').innerHTML; // Captura o conteúdo do post
+    const printWindow = window.open('', '', 'width=800,height=600');
+    printWindow.document.write('<style>body { font-family: Arial, sans-serif; padding: 20px; }</style>'); // Estilos de impressão
     printWindow.document.write('</head><body>');
-
-    printWindow.document.write(`<h1 class="title">${postTitle}</h1>`);
-
-    printWindow.document.write(postContent);
-
-    printWindow.document.write(`<p>Publicado em: ${publicationDate}</p>`);
-
-    printWindow.document.write('</footer>');
+    printWindow.document.write(postContent); // Adiciona o conteúdo do post na nova janela
     printWindow.document.write('</body></html>');
-
     printWindow.document.close();
     printWindow.focus();
-    printWindow.print();
-    printWindow.close();
+    printWindow.print(); // Abre a caixa de diálogo de impressão para o conteúdo do post
+    printWindow.close(); // Fecha a janela após a impressão
   };
 
   return (
