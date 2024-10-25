@@ -1,9 +1,10 @@
+
 import { useState, createContext, useContext, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
 import { getSearchData } from 'lib/search';
 
-const SEARCH_KEYS = ['slug', 'title'];
+const SEARCH_KEYS = ['slug', 'title', 'excerpt', 'categories.name', 'categories.description', 'date', 'content'];
 
 export const SEARCH_STATE_LOADING = 'LOADING';
 export const SEARCH_STATE_READY = 'READY';
@@ -26,7 +27,9 @@ export function useSearchState() {
   if (data) {
     client = new Fuse(data.posts, {
       keys: SEARCH_KEYS,
+      threshold: 0.7,
       isCaseSensitive: false,
+      useExtendedSearch: true,
     });
   }
 
@@ -38,13 +41,17 @@ export function useSearchState() {
 
       try {
         searchData = await getSearchData();
+        console.log('Dados de busca carregados:', searchData);
+        if (!searchData || !searchData.posts) {
+          throw new Error('Dados de busca inválidos ou vazios');
+        }
+        setData(searchData);
+        setState(SEARCH_STATE_LOADED);
       } catch (e) {
+        console.error('Erro ao carregar dados de busca:', e);
         setState(SEARCH_STATE_ERROR);
         return;
       }
-
-      setData(searchData);
-      setState(SEARCH_STATE_LOADED);
     })();
   }, []);
 

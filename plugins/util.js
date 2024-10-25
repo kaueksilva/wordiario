@@ -81,6 +81,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
             slug
             date
             modified
+            content
             author {
               node {
                 name
@@ -90,6 +91,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
               edges {
                 node {
                   name
+                  description
                 }
               }
             }
@@ -113,13 +115,20 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       }
 
       if (data.categories) {
-        data.categories = data.categories.edges.map(({ node }) => node.name);
+        // Mapear as categorias para incluir `name` e `description`
+        data.categories = data.categories.edges.map(({ node }) => ({
+          name: node.name,
+          description: node.description,
+        }));
       }
-
       if (data.excerpt) {
         //Sanitize the excerpt by removing all HTML tags
         const regExHtmlTags = /(<([^>]+)>)/g;
         data.excerpt = data.excerpt.replace(regExHtmlTags, '');
+      }
+      if (data.content) {
+        // Se precisar limpar o content ou fazer modificações, faça aqui
+        data.content = data.content.trim();
       }
 
       return data;
@@ -281,11 +290,24 @@ function generateIndexSearch({ posts }) {
     // within the DOM
 
     const title = he.decode(post.title);
+    const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
+    const content = post.content ? he.decode(post.content) : '';
+
+    const allCategories = post.categories
+      ? post.categories.map((category) => ({
+          name: category.name ? he.decode(category.name) : '',
+          description: category.description ? he.decode(category.description) : '',
+        }))
+      : [];
 
     return {
       title,
       slug: post.slug,
       date: post.date,
+      excerpt,
+      categories: post.categories,
+      allCategories,
+      content, //: post.content,
     };
   });
 
