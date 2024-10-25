@@ -11,7 +11,7 @@ const SEARCH_HIDDEN = 'hidden';
 const Search = () => {
   const formRef = useRef();
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
-  const { query, results, search, clearSearch, state } = useSearch({ maxResults: 5 });
+  const { query, results, search, clearSearch, state } = useSearch({ maxResults: 10 });
   const searchIsLoaded = state === SEARCH_STATE_LOADED;
 
   // Memoize the handleOnDocumentClick function with useCallback to ensure it's stable
@@ -120,7 +120,7 @@ const Search = () => {
                 >
                   <input
                     type="search"
-                    name="q"
+                    name="s"
                     value={query || ''}
                     onChange={(e) => search({ query: e.currentTarget.value })}
                     autoComplete="off"
