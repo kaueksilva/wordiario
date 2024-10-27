@@ -81,6 +81,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
             slug
             date
             modified
+            content   // Adicionado campo content
             author {
               node {
                 name
@@ -90,6 +91,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
               edges {
                 node {
                   name
+                  description
                 }
               }
             }
@@ -103,7 +105,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
 
   try {
     const data = await apolloClient.query({ query });
-    const nodes = [...data.data.posts.edges.map(({ node = {} }) => node)];
+    const nodes = data.data.posts.edges.map(({ node = {} }) => node);
 
     posts = nodes.map((post) => {
       const data = { ...post };
@@ -113,13 +115,21 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       }
 
       if (data.categories) {
-        data.categories = data.categories.edges.map(({ node }) => node.name);
+        // Mapear as categorias para incluir `name` e `description`
+        data.categories = data.categories.edges.map(({ node }) => ({
+          name: node.name,
+          description: node.description,
+        }));
       }
 
       if (data.excerpt) {
-        //Sanitize the excerpt by removing all HTML tags
+        // Remover todas as tags HTML do excerpt
         const regExHtmlTags = /(<([^>]+)>)/g;
         data.excerpt = data.excerpt.replace(regExHtmlTags, '');
+      }
+      if (data.content) {
+        const regExHtmlTags = /(<([^>]+)>)/g;
+        data.content = data.content.replace(regExHtmlTags, '').trim();
       }
 
       return data;
@@ -269,23 +279,32 @@ function generateFeed({ posts = [], metadata = {} }) {
 
   return feed.xml({ indent: true });
 }
-
 /**
  * generateIndexSearch
  */
 
 function generateIndexSearch({ posts }) {
   const index = posts.map((post = {}) => {
-    // We need to decode the title because we're using the
-    // rendered version which assumes this value will be used
-    // within the DOM
-
+    // Decodificar os campos usando he.decode para uso seguro em DOM
     const title = he.decode(post.title);
+    const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
+    const content = post.content ? he.decode(post.content) : '';
+
+    // Mapear as categorias para incluir `name` e `description`, aplicando he.decode
+    const categories = post.categories
+      ? post.categories.map((category) => ({
+          name: category.name ? he.decode(category.name) : '',
+          description: category.description ? he.decode(category.description) : '',
+        }))
+      : [];
 
     return {
       title,
       slug: post.slug,
       date: post.date,
+      excerpt,
+      categories,
+      content,
     };
   });
 
