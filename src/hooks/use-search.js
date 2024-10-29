@@ -27,9 +27,7 @@ export function useSearchState() {
   if (data) {
     client = new Fuse(data.posts, {
       keys: SEARCH_KEYS,
-      threshold: 0.7,
       isCaseSensitive: false,
-      useExtendedSearch: true,
     });
   }
 

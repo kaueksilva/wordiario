@@ -128,7 +128,8 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       }
       if (data.content) {
         // Se precisar limpar o content ou fazer modificações, faça aqui
-        data.content = data.content.trim();
+        const regExHtmlTags = /(<([^>]+)>)/g;
+        data.content = data.content.replace(regExHtmlTags, '').trim();
       }
 
       return data;
