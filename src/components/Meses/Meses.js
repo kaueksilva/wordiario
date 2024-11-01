@@ -1,5 +1,4 @@
 import { getpostsPerMonth } from '../../data/yearlyPosts';
-
 // components/MonthList.js
 
 export default function MonthList() {
@@ -14,14 +13,11 @@ export default function MonthList() {
     { nome: 'Agosto', numero: 8 },
     { nome: 'Setembro', numero: 9 },
     { nome: 'Outubro', numero: 10 },
-    { nome: 'Bovembro', numero: 11 },
+    { nome: 'Novembro', numero: 11 },
     { nome: 'Dezembro', numero: 12 },
   ];
 
-  async function postsFiltradosPorMes(
-    before = { year: 2024, month: 3, day: 1 },
-    after = { year: 2024, month: 1, day: 31 }
-  ) {
+  async function postsFiltradosPorMes(before = { year: 2024, month: 3, day: 1 },after = { year: 2024, month: 1, day: 31 }) {
     try {
       const posts = await getpostsPerMonth(before, after);
       console.log('PASSEI NA FUNÇÃO postsFiltradosPorMes');
@@ -40,9 +36,7 @@ export default function MonthList() {
         <a
           key={month.numero}
           className="mx-2 text-lg text-[#003470] font-semibold"
-          onClick={() => {
-            console.log(postsFiltradosPorMes());
-          }}
+          
         >
           {month.nome}
         </a>

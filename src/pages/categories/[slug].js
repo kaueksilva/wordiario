@@ -1,12 +1,12 @@
 import { getCategoryBySlug } from 'lib/categories';
 import { getPostsByCategoryId, getPaginatedPosts } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
-
 import HeaderSlug from 'components/HeaderSlug';
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
 import MonthList from '../../components/Meses';
+import yearlyPosts from '../../data/yearlyPosts';
 
 export default function Category({ category, posts }) {
   // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
@@ -16,10 +16,11 @@ export default function Category({ category, posts }) {
     metadata: {
       ...category,
       description: description || category?.og?.description || `Read ${posts?.length} posts from ${name}`,
+
     },
   });
 
-  // Agora você pode checar a existência de 'category' ou 'posts' depois
+
   if (!category || !posts) {
     return <p>Data not available</p>;
   }
@@ -107,6 +108,11 @@ export async function getStaticProps({ params = {} } = {}) {
     },
   };
 }
+
+
+// função que busca as postagens de acordo com o mês e ano
+
+
 
 export async function getStaticPaths() {
   const { categories } = await getAllCategories();

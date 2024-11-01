@@ -1,5 +1,4 @@
 import { gql } from '@apollo/client';
-
 export const QUERY_ALL_CATEGORIES = gql`
   query AllCategories {
     categories(first: 10000) {
@@ -68,6 +67,8 @@ export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
   }
 `;
 
+
+// pegar posts de acordo com mês e ano
 export const QUERY_POSTS_MONTHS = gql`
   query AllPostsIndex($before: String!, $after: String!) {
     posts(
