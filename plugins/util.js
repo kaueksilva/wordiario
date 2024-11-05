@@ -81,7 +81,11 @@ async function getAllPosts(apolloClient, process, verbose = false) {
             slug
             date
             modified
+<<<<<<< HEAD
             content
+=======
+            content   // Adicionado campo content
+>>>>>>> 64e1c48441a52aa00c9a237a602972b70449d545
             author {
               node {
                 name
@@ -105,7 +109,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
 
   try {
     const data = await apolloClient.query({ query });
-    const nodes = [...data.data.posts.edges.map(({ node = {} }) => node)];
+    const nodes = data.data.posts.edges.map(({ node = {} }) => node);
 
     posts = nodes.map((post) => {
       const data = { ...post };
@@ -122,7 +126,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
         }));
       }
       if (data.excerpt) {
-        //Sanitize the excerpt by removing all HTML tags
+        // Remover todas as tags HTML do excerpt
         const regExHtmlTags = /(<([^>]+)>)/g;
         data.excerpt = data.excerpt.replace(regExHtmlTags, '');
       }
@@ -279,22 +283,23 @@ function generateFeed({ posts = [], metadata = {} }) {
 
   return feed.xml({ indent: true });
 }
-
 /**
  * generateIndexSearch
  */
 
 function generateIndexSearch({ posts }) {
   const index = posts.map((post = {}) => {
-    // We need to decode the title because we're using the
-    // rendered version which assumes this value will be used
-    // within the DOM
-
+    // Decodificar os campos usando he.decode para uso seguro em DOM
     const title = he.decode(post.title);
     const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
     const content = post.content ? he.decode(post.content) : '';
 
+<<<<<<< HEAD
     const allCategories = post.categories
+=======
+    // Mapear as categorias para incluir `name` e `description`, aplicando he.decode
+    const categories = post.categories
+>>>>>>> 64e1c48441a52aa00c9a237a602972b70449d545
       ? post.categories.map((category) => ({
           name: category.name ? he.decode(category.name) : '',
           description: category.description ? he.decode(category.description) : '',
@@ -306,9 +311,14 @@ function generateIndexSearch({ posts }) {
       slug: post.slug,
       date: post.date,
       excerpt,
+<<<<<<< HEAD
       categories: post.categories,
       allCategories,
       content, //: post.content,
+=======
+      categories,
+      content,
+>>>>>>> 64e1c48441a52aa00c9a237a602972b70449d545
     };
   });
 
