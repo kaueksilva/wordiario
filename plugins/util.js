@@ -294,12 +294,7 @@ function generateIndexSearch({ posts }) {
     const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
     const content = post.content ? he.decode(post.content) : '';
 
-<<<<<<< HEAD
     const allCategories = post.categories
-=======
-    // Mapear as categorias para incluir `name` e `description`, aplicando he.decode
-    const categories = post.categories
->>>>>>> 64e1c48441a52aa00c9a237a602972b70449d545
       ? post.categories.map((category) => ({
           name: category.name ? he.decode(category.name) : '',
           description: category.description ? he.decode(category.description) : '',
@@ -311,14 +306,9 @@ function generateIndexSearch({ posts }) {
       slug: post.slug,
       date: post.date,
       excerpt,
-<<<<<<< HEAD
       categories: post.categories,
       allCategories,
       content, //: post.content,
-=======
-      categories,
-      content,
->>>>>>> 64e1c48441a52aa00c9a237a602972b70449d545
     };
   });
 
