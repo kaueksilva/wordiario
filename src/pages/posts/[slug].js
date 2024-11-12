@@ -42,14 +42,18 @@ export default function Post({ post, socialImage, related }) {
   });
 
   if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-    metadata.title = `${title}` - `${siteMetadata.title}`;
+    metadata.title = `${title} - ${siteMetadata.title}`;
     metadata.og.title = metadata.title;
     metadata.twitter.title = metadata.title;
   }
 
   const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
 
-  const helmetSettings = helmetSettingsFromMetadata(metadata);
+  // const helmetSettings = helmetSettingsFromMetadata(metadata);
+  const helmetSettings = helmetSettingsFromMetadata({
+    ...metadata,
+    title: String(metadata.title),
+  });
 
   // Função para gerar PDF
   const generatePDF = () => {

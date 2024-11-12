@@ -69,78 +69,87 @@ function createApolloClient(url) {
  * getAllPosts
  */
 
-async function getAllPosts(apolloClient, process, verbose = false) {
-  const query = gql`
-    {
-      posts(first: 10000) {
-        edges {
-          node {
-            title
-            excerpt
-            databaseId
-            slug
-            date
-            modified
-            content   // Adicionado campo content
-            author {
-              node {
-                name
-              }
-            }
-            categories {
-              edges {
-                node {
-                  name
-                  description
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
+// async function getAllPosts(apolloClient, process, verbose = false) {
+//   const query = gql`
+//     {
+//       posts(first: 10000) {
+//         edges {
+//           node {
+//             title
+//             excerpt
+//             databaseId
+//             slug
+//             date
+//             modified
+//             content   // Adicionado campo content
+//             author {
+//               node {
+//                 name
+//               }
+//             }
+//             categories {
+//               edges {
+//                 node {
+//                   name
+//                   description
+//                 }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   `;
 
+async function getAllPosts() {
+  const apiUrl = `https://diariooficial.jaboatao.pe.gov.br/wp-json/custom-api/v1/posts`;
   let posts = [];
 
   try {
-    const data = await apolloClient.query({ query });
-    const nodes = data.data.posts.edges.map(({ node = {} }) => node);
+    const response = await fetch(apiUrl);
 
-    posts = nodes.map((post) => {
-      const data = { ...post };
+    if (!response.ok) {
+      throw new Error('Erro na requisição para a API');
+    }
 
-      if (data.author) {
-        data.author = data.author.node.name;
+    const data = await response.json();
+
+    posts = data.map((post) => {
+      const formattedPost = { ...post };
+
+      // Extrair o nome do autor
+      if (formattedPost.author && formattedPost.author.node) {
+        formattedPost.author = formattedPost.author.node.name;
       }
 
-      if (data.categories) {
-        // Mapear as categorias para incluir `name` e `description`
-        data.categories = data.categories.edges.map(({ node }) => ({
+      // Extrair nome e descrição das categorias
+      if (formattedPost.categories && formattedPost.categories.edges) {
+        formattedPost.categories = formattedPost.categories.edges.map(({ node }) => ({
           name: node.name,
           description: node.description,
         }));
       }
 
-      if (data.excerpt) {
-        // Remover todas as tags HTML do excerpt
+      // Remover todas as tags HTML do excerpt
+      if (formattedPost.excerpt) {
         const regExHtmlTags = /(<([^>]+)>)/g;
-        data.excerpt = data.excerpt.replace(regExHtmlTags, '');
-      }
-      if (data.content) {
-        const regExHtmlTags = /(<([^>]+)>)/g;
-        data.content = data.content.replace(regExHtmlTags, '').trim();
+        formattedPost.excerpt = formattedPost.excerpt.replace(regExHtmlTags, '');
       }
 
-      return data;
+      // Remover todas as tags HTML do content e fazer trim
+      if (formattedPost.content) {
+        const regExHtmlTags = /(<([^>]+)>)/g;
+        formattedPost.content = formattedPost.content.replace(regExHtmlTags, '').trim();
+      }
+
+      return formattedPost;
     });
 
-    verbose && console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
-    return {
-      posts,
-    };
-  } catch (e) {
-    throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
+    console.log('Posts buscados com sucesso:', posts);
+    return { posts };
+  } catch (error) {
+    console.error('Erro ao buscar posts:', error);
+    throw error;
   }
 }
 
