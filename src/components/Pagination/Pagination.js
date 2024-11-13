@@ -7,7 +7,7 @@ import { GrPrevious as PreviousIcon, GrNext as NextIcon } from 'react-icons/gr';
 import { HiOutlineDotsHorizontal as Dots } from 'react-icons/hi';
 import styles from './Pagination.module.scss';
 
-const MAX_NUM_PAGES = 9;
+const MAX_NUM_PAGES = 10; // Ajuste para o número máximo de páginas centrais que deseja exibir
 
 const { homepage = '' } = config;
 
@@ -21,20 +21,31 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
   let hasNextDots = false;
 
   function getPages() {
-    let pages = pagesCount;
-    let start = 0;
-    if (pagesCount > MAX_NUM_PAGES) {
-      pages = MAX_NUM_PAGES;
-      const half = Math.ceil(MAX_NUM_PAGES / 2);
-      const isHead = currentPage <= half;
-      const isTail = currentPage > pagesCount - half;
-      hasNextDots = !isTail;
-      if (!isHead) {
-        hasPrevDots = true;
-        start = isTail ? pagesCount - MAX_NUM_PAGES : currentPage - half;
-      }
+    const pages = [];
+
+    // Sempre inclui a primeira página
+    pages.push(1);
+
+    // Define o intervalo central em torno da página atual
+    const start = Math.max(2, currentPage - Math.floor(MAX_NUM_PAGES / 2));
+    const end = Math.min(pagesCount - 1, currentPage + Math.floor(MAX_NUM_PAGES / 2));
+
+    if (start > 2) {
+      hasPrevDots = true;
     }
-    return [...new Array(pages)].map((_, i) => i + 1 + start);
+
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+
+    if (end < pagesCount - 1) {
+      hasNextDots = true;
+    }
+
+    // Sempre inclui a última página
+    pages.push(pagesCount);
+
+    return pages;
   }
 
   const pages = getPages();
@@ -55,14 +66,28 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
         )}
 
         <ul className={styles.pages}>
-          {hasPrevDots && (
-            <li className={styles.dots}>
-              <Dots aria-label={`Navigation to pages 1-${pages[0] - 1} hidden`} />
-            </li>
-          )}
-          {pages.map((page) => {
-            const active = page === currentPage;
-            return active ? (
+          {pages.map((page, index) => {
+            const isActive = page === currentPage;
+            const isDotsBefore = hasPrevDots && index === 1;
+            const isDotsAfter = hasNextDots && index === pages.length - 2;
+
+            if (isDotsBefore) {
+              return (
+                <li key="prev-dots" className={styles.dots}>
+                  <Dots aria-label="Navigation skipped pages" />
+                </li>
+              );
+            }
+
+            if (isDotsAfter) {
+              return (
+                <li key="next-dots" className={styles.dots}>
+                  <Dots aria-label="Navigation skipped pages" />
+                </li>
+              );
+            }
+
+            return isActive ? (
               <li key={page}>
                 <span className={styles.active} aria-label={`Current Page, Page ${page}`} aria-current="true">
                   {page}
@@ -76,11 +101,6 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
               </li>
             );
           })}
-          {hasNextDots && (
-            <li className={styles.dots}>
-              <Dots aria-label={`Navigation to pages ${pages[pages.length - 1] + 1}-${pagesCount} hidden`} />
-            </li>
-          )}
         </ul>
 
         {hasNextPage && (

@@ -1,7 +1,6 @@
 import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 import { Helmet } from 'react-helmet';
-import { helmetSettingsFromMetadata } from 'lib/site';
 import Layout from 'components/Layout';
 import Section from 'components/Section';
 import Container from 'components/Container';
@@ -22,17 +21,11 @@ export default function TemplateArchive({
 }) {
   const { metadata: siteMetadata = {} } = useSite();
 
-  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-    metadata.title = `${title} - ${siteMetadata.title}`;
-    metadata.og.title = metadata.title;
-    metadata.twitter.title = metadata.title;
-  }
-
-  const helmetSettings = helmetSettingsFromMetadata(metadata);
-
   return (
     <Layout>
-      <Helmet {...helmetSettings} />
+      <Helmet>
+        <title>{title}</title> {/* Definindo apenas o título da página atual */}
+      </Helmet>
 
       <WebpageJsonLd title={title} description={metadata.description} siteTitle={siteMetadata.title} slug={slug} />
 
@@ -41,13 +34,11 @@ export default function TemplateArchive({
           {Array.isArray(posts) && (
             <>
               <ul className={styles.posts}>
-                {posts.map((post) => {
-                  return (
-                    <li key={post.slug}>
-                      <PostCard post={post} options={postOptions} />
-                    </li>
-                  );
-                })}
+                {posts.map((post) => (
+                  <li key={post.slug}>
+                    <PostCard post={post} options={postOptions} />
+                  </li>
+                ))}
               </ul>
               {pagination && (
                 <Pagination

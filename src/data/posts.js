@@ -25,13 +25,7 @@ export const POST_FIELDS = gql`
 export const QUERY_ALL_POSTS_INDEX = gql`
   ${POST_FIELDS}
   query AllPostsIndex {
-    posts(
-      first: 10000
-      where: {
-        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
-        orderby: { field: DATE, order: DESC }
-      }
-    ) {
+    posts(first: 10000, where: { categoryIn: [8], orderby: { field: DATE, order: DESC } }) {
       nodes {
         ...PostFields
         title
@@ -45,13 +39,7 @@ export const QUERY_ALL_POSTS_INDEX = gql`
 export const QUERY_ALL_POSTS_ARCHIVE = gql`
   ${POST_FIELDS}
   query AllPostsArchive {
-    posts(
-      first: 10000
-      where: {
-        categoryName: "Diário Oficial | 2024 , Diário Oficial | 2023 , Diário Oficial | 2022 , Diário Oficial | 2021 , Diário Oficial | 2020 , Diário Oficial | 2019"
-        orderby: { field: DATE, order: DESC }
-      }
-    ) {
+    posts(first: 10000, where: { categoryIn: [8], orderby: { field: DATE, order: DESC } }) {
       edges {
         node {
           ...PostFields

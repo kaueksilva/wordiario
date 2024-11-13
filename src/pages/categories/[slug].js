@@ -5,8 +5,11 @@ import HeaderSlug from 'components/HeaderSlug';
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
+<<<<<<< HEAD
 import MonthList from '../../components/Meses';
 import yearlyPosts from '../../data/yearlyPosts';
+=======
+>>>>>>> 9d4ec9b58f668e1237b8a3b5a88f3057191666a6
 
 export default function Category({ category, posts }) {
   // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
@@ -62,10 +65,21 @@ export default function Category({ category, posts }) {
         </div>
       </HeaderSlug>
 
+<<<<<<< HEAD
       {/* Adicionando a listinha de meses abaixo do cabeçalho */}
       <MonthList />
 
       <TemplateArchive title={name} Title={<Title title={name} />} posts={posts} slug={slug} metadata={metadata} />
+=======
+      <TemplateArchive
+        title={name}
+        Title={<Title title={name} />}
+        posts={posts}
+        slug={slug}
+        metadata={metadata}
+        //pagination={pagination} //aparece a paginação no final da página
+      />
+>>>>>>> 9d4ec9b58f668e1237b8a3b5a88f3057191666a6
     </>
   );
 }
