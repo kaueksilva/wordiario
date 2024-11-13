@@ -132,7 +132,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2024"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2024
                         </a>
@@ -140,7 +140,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2023"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2023
                         </a>
@@ -148,7 +148,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2022"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2022
                         </a>
@@ -156,7 +156,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2021"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2021
                         </a>
@@ -164,7 +164,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2020"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2020
                         </a>
@@ -172,7 +172,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/ata-de-registro-de-precos-de-2019"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2019
                         </a>
@@ -180,7 +180,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/registro-preco-2018"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2018
                         </a>
@@ -188,7 +188,7 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/registro-preco-2017"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2017
                         </a>
@@ -196,16 +196,13 @@ const Menu = () => {
                       <li>
                         <a
                           href=" /categories/registro-preco-2016"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2016
                         </a>
                       </li>
                       <li>
-                        <a
-                          href=" /categories/registro-preco-2015"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
-                        >
+                        <a href=" /categories/registro-preco-2015" className="block py-2 text-[#000000] text-[14px]">
                           Registro de Preço - 2015
                         </a>
                       </li>
@@ -299,10 +296,7 @@ const Menu = () => {
                         </a>
                       </li>
                       <li>
-                        <a
-                          href=" /categories/do-2015"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
-                        >
+                        <a href=" /categories/do-2015" className="block py-2 text-[#000000] text-[14px]">
                           Diário Oficial - 2015
                         </a>
                       </li>
@@ -326,10 +320,18 @@ const Menu = () => {
               {''}
               {/* Adiciona lg:hidden */}
               <div className="icones flex gap-5 mb-10">
-                <i className="ri-twitter-x-line text-white text-[24px]"></i>
-                <i className="ri-facebook-circle-fill text-white text-[24px]"></i>
-                <i className="ri-instagram-line text-white text-[24px]"></i>
-                <i className="ri-youtube-fill text-white text-[24px]"></i>
+                <a href="https://www.facebook.com/PrefeituradoJaboatao" target="_blank">
+                  <i className="ri-twitter-x-line text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.facebook.com/PrefeituradoJaboatao" target="_blank">
+                  <i className="ri-facebook-circle-fill text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.instagram.com/prefjaboatao/" target="_blank">
+                  <i className="ri-instagram-line text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.youtube.com/prefeiturajaboatao" target="_blank">
+                  <i className="ri-youtube-fill text-white text-[24px]"></i>
+                </a>
               </div>
               <ul className="text-center text-[20px] font-bold">
                 {/* Atas de Registro de Preços */}
