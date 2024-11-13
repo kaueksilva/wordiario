@@ -1,4 +1,111 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+// import { useState, createContext, useContext, useEffect } from 'react';
+// import Fuse from 'fuse.js';
+
+// import { getSearchData } from 'lib/search';
+
+// const SEARCH_KEYS = ['slug', 'title', 'excerpt', 'content', 'categories.name', 'categories.date'];
+
+// export const SEARCH_STATE_LOADING = 'LOADING';
+// export const SEARCH_STATE_READY = 'READY';
+// export const SEARCH_STATE_ERROR = 'ERROR';
+// export const SEARCH_STATE_LOADED = 'LOADED';
+
+// export const SearchContext = createContext();
+
+// export const SearchProvider = (props) => {
+//   const search = useSearchState();
+//   return <SearchContext.Provider value={search} {...props} />;
+// };
+
+// export function useSearchState() {
+//   const [state, setState] = useState(SEARCH_STATE_READY);
+//   const [data, setData] = useState(null);
+
+//   let client;
+
+//   if (data) {
+//     client = new Fuse(data.posts, {
+//       keys: SEARCH_KEYS,
+//       isCaseSensitive: false,
+//     });
+//   }
+
+//   useEffect(() => {
+//     (async function getData() {
+//       setState(SEARCH_STATE_LOADING);
+
+//       let searchData;
+
+//       try {
+//         searchData = await getSearchData();
+//       } catch (e) {
+//         setState(SEARCH_STATE_ERROR);
+//         return;
+//       }
+
+//       setData(searchData);
+//       setState(SEARCH_STATE_LOADED);
+//     })();
+//   }, []);
+
+//   return {
+//     state,
+//     data,
+//     client,
+//   };
+// }
+
+// export default function useSearch({ defaultQuery = null, maxResults } = {}) {
+//   const search = useContext(SearchContext);
+//   const { client } = search;
+
+//   const [query, setQuery] = useState(defaultQuery);
+
+//   let results = [];
+
+//   // Se tivermos uma consulta, faça uma busca.
+//   // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
+
+//   if (client && query) {
+//     results = client.search(query).map(({ item }) => item);
+//   }
+
+//   if (maxResults && results.length > maxResults) {
+//     results = results.slice(0, maxResults);
+//   }
+
+//   // Se o argumento defaultQuery mudar, o hook deve refletir
+//   // essa atualização e definir isso como o novo estado
+
+//   useEffect(() => setQuery(defaultQuery), [defaultQuery]);
+
+//   /* handleSearch
+//    */
+
+//   function handleSearch({ query }) {
+//     setQuery(query);
+//   }
+
+//   /* handleClearSearch
+//    */
+
+//   function handleClearSearch() {
+//     setQuery(null);
+//   }
+
+//   return {
+//     ...search,
+//     query,
+//     results,
+//     search: handleSearch,
+//     clearSearch: handleClearSearch,
+//   };
+// }
+
+
+
+
+import { useState, createContext, useContext, useEffect, useMemo } from 'react';
 import Fuse from 'fuse.js';
 
 import { getSearchData } from 'lib/search';
@@ -21,30 +128,26 @@ export function useSearchState() {
   const [state, setState] = useState(SEARCH_STATE_READY);
   const [data, setData] = useState(null);
 
-  let client;
-
-  if (data) {
-    client = new Fuse(data.posts, {
-      keys: SEARCH_KEYS,
-      isCaseSensitive: false,
-    });
-  }
+  const client = useMemo(() => {
+    return data
+      ? new Fuse(data.posts, {
+          keys: SEARCH_KEYS,
+          isCaseSensitive: false,
+        })
+      : null;
+  }, [data]);
 
   useEffect(() => {
     (async function getData() {
       setState(SEARCH_STATE_LOADING);
 
-      let searchData;
-
       try {
-        searchData = await getSearchData();
+        const searchData = await getSearchData();
+        setData(searchData);
+        setState(SEARCH_STATE_LOADED);
       } catch (e) {
         setState(SEARCH_STATE_ERROR);
-        return;
       }
-
-      setData(searchData);
-      setState(SEARCH_STATE_LOADED);
     })();
   }, []);
 
@@ -55,7 +158,7 @@ export function useSearchState() {
   };
 }
 
-export default function useSearch({ defaultQuery = null, maxResults } = {}) {
+export default function useSearch({ defaultQuery = '', maxResults } = {}) {
   const search = useContext(SearchContext);
   const { client } = search;
 
@@ -65,7 +168,6 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
 
   // Se tivermos uma consulta, faça uma busca.
   // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
-
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
   }
@@ -74,24 +176,22 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
     results = results.slice(0, maxResults);
   }
 
-  // Se o argumento defaultQuery mudar, o hook deve refletir
-  // essa atualização e definir isso como o novo estado
+  // Atualizar o estado se defaultQuery mudar e for diferente do estado atual
+  useEffect(() => {
+    if (defaultQuery !== query) {
+      setQuery(defaultQuery);
+    }
+  }, [defaultQuery]);
 
-  useEffect(() => setQuery(defaultQuery), [defaultQuery]);
-
-  /* handleSearch
-   */
-
-  function handleSearch({ query }) {
+  /* handleSearch */
+  const handleSearch = ({ query }) => {
     setQuery(query);
-  }
+  };
 
-  /* handleClearSearch
-   */
-
-  function handleClearSearch() {
-    setQuery(null);
-  }
+  /* handleClearSearch */
+  const handleClearSearch = () => {
+    setQuery('');
+  };
 
   return {
     ...search,
