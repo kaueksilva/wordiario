@@ -14,32 +14,34 @@ export default function Home({ posts, pagination }) {
   const { title } = metadata;
 
   return (
-    <Layout>
-      <WebsiteJsonLd siteTitle={title} />
-      <Header />
-      <Section>
-        <Container>
-          <h2 className="sr-only">Posts</h2>
-          <ul className={styles.posts}>
-            {posts.map((post) => {
-              return (
-                <li key={post.slug}>
-                  <PostCard post={post} />
-                </li>
-              );
-            })}
-          </ul>
-          {pagination && (
-            <Pagination
-              addCanonical={false}
-              currentPage={pagination?.currentPage}
-              pagesCount={pagination?.pagesCount}
-              basePath={pagination?.basePath}
-            />
-          )}
-        </Container>
-      </Section>
-    </Layout>
+    <>
+      <Layout>
+        <WebsiteJsonLd siteTitle={title} />
+        <Header />
+        <Section>
+          <Container>
+            <h2 className="sr-only">Posts</h2>
+            <ul className={styles.posts}>
+              {posts.map((post) => {
+                return (
+                  <li key={post.slug}>
+                    <PostCard post={post} />
+                  </li>
+                );
+              })}
+            </ul>
+            {pagination && (
+              <Pagination
+                addCanonical={false}
+                currentPage={pagination?.currentPage}
+                pagesCount={pagination?.pagesCount}
+                basePath={pagination?.basePath}
+              />
+            )}
+          </Container>
+        </Section>
+      </Layout>
+    </>
   );
 }
 

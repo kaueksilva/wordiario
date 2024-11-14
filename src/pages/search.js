@@ -1,3 +1,4 @@
+'use client';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import usePageMetadata from 'hooks/use-page-metadata';
@@ -10,6 +11,8 @@ export default function Search() {
   const { query, results, search } = useSearch();
   const title = 'Search';
   const slug = 'search';
+  const content = 'search';
+  const excerpt = 'search';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -22,6 +25,8 @@ export default function Search() {
   const { metadata } = usePageMetadata({
     metadata: {
       title,
+      content,
+      excerpt,
       description: `Search results for ${query}`,
     },
   });
@@ -34,8 +39,7 @@ export default function Search() {
       <br />
       <br />
       <br />
-      <br />
-      <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />
+      <TemplateArchive title={title} posts={results} slug={slug} content={content} metadata={metadata} />
     </>
   );
 }

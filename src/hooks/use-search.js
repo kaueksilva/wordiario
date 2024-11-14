@@ -1,9 +1,10 @@
+'use client';
 import { useState, createContext, useContext, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
 import { getSearchData } from 'lib/search';
 
-const SEARCH_KEYS = ['slug', 'title', 'excerpt', 'content', 'categories.name', 'categories.date'];
+const SEARCH_KEYS = ['slug', 'title', 'content', 'date', 'excerpt'];
 
 export const SEARCH_STATE_LOADING = 'LOADING';
 export const SEARCH_STATE_READY = 'READY';
@@ -27,7 +28,11 @@ export function useSearchState() {
     client = new Fuse(data.posts, {
       keys: SEARCH_KEYS,
       isCaseSensitive: false,
+      includeScore: true, // Inclui pontuação para priorizar correspondências mais próximas
+      useExtendedSearch: true,
+      threshold: 0.6, // Controle de precisão (ajuste conforme necessário)
     });
+    console.log(`Passei no use-search ${data.posts}`);
   }
 
   useEffect(() => {
@@ -38,13 +43,14 @@ export function useSearchState() {
 
       try {
         searchData = await getSearchData();
+        if (!searchData || !searchData.posts) {
+          throw new Error('Dados de busca inválidos ou vazios');
+        }
+        setData(searchData);
+        setState(SEARCH_STATE_LOADED);
       } catch (e) {
         setState(SEARCH_STATE_ERROR);
-        return;
       }
-
-      setData(searchData);
-      setState(SEARCH_STATE_LOADED);
     })();
   }, []);
 
@@ -59,7 +65,7 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   const search = useContext(SearchContext);
   const { client } = search;
 
-  const [query, setQuery] = useState(defaultQuery);
+  const [query, setQuery] = useState('');
 
   let results = [];
 
@@ -68,6 +74,15 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
 
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
+    // Filtra ainda mais os resultados com base no conteúdo dos campos
+    results = results.filter(
+      (result) =>
+        result.title.includes(query) ||
+        result.content.includes(query) ||
+        result.excerpt.includes(query) ||
+        (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
+    );
+    console.log('Resultados da busca:', results); // Verifica o conteúdo de 'results'
   }
 
   if (maxResults && results.length > maxResults) {

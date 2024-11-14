@@ -1,3 +1,4 @@
+`use client`;
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import styles from './Layout.module.scss';

@@ -7,6 +7,7 @@ import {
   QUERY_ALL_POSTS_INDEX,
   QUERY_ALL_POSTS_ARCHIVE,
   QUERY_ALL_POSTS,
+  QUERY_ALL_POSTS_ASC,
   QUERY_POST_BY_SLUG,
   QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
   QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
@@ -23,6 +24,7 @@ import {
  */
 
 export function postPathBySlug(slug) {
+  console.log('É nós !!');
   return `/posts/${slug}`;
 }
 
@@ -75,6 +77,7 @@ export async function getPostBySlug(slug) {
     post.metaTitle = seo.title;
     post.metaDescription = seo.metaDesc;
     post.readingTime = seo.readingTime;
+    post.metaContent = seo.content;
 
     if (seo.canonical && !seo.canonical.includes(apiHost)) {
       post.canonical = seo.canonical;
@@ -121,6 +124,7 @@ export async function getPostBySlug(slug) {
 
 const allPostsIncludesTypes = {
   all: QUERY_ALL_POSTS,
+  desc: QUERY_ALL_POSTS_ASC,
   archive: QUERY_ALL_POSTS_ARCHIVE,
   index: QUERY_ALL_POSTS_INDEX,
 };
@@ -138,6 +142,14 @@ export async function getAllPosts(options = {}) {
 
   return {
     posts: Array.isArray(posts) && posts.map(mapPostData),
+  };
+}
+// Função para obter posts em ordem crescente e decrescente
+export async function getAllPostsWithOrder() {
+  const { posts: postsDesc } = await getAllPosts({ queryIncludes: 'desc' }); // Para obter posts em ordem decrescente
+
+  return {
+    postsDesc,
   };
 }
 
@@ -301,7 +313,7 @@ export function mapPostData(post = {}) {
  * getRelatedPosts
  */
 
-export async function getRelatedPosts(categories, postId, count = 5) {
+export async function getRelatedPosts(categories, postId, count = 10) {
   if (!Array.isArray(categories) || categories.length === 0) return;
 
   let related = {
