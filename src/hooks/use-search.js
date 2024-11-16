@@ -32,7 +32,7 @@ export function useSearchState() {
       useExtendedSearch: true,
       threshold: 0.6, // Controle de precisão (ajuste conforme necessário)
     });
-    console.log(`Passei no use-search ${data.posts}`);
+    // console.log(`Passei no use-search ${data.posts}`);
   }
 
   useEffect(() => {
@@ -75,14 +75,14 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
     // Filtra ainda mais os resultados com base no conteúdo dos campos
-    results = results.filter(
-      (result) =>
-        result.title.includes(query) ||
-        result.content.includes(query) ||
-        result.excerpt.includes(query) ||
-        (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
-    );
-    console.log('Resultados da busca:', results); // Verifica o conteúdo de 'results'
+    // results = results.filter(
+    //   (result) =>
+    //     result.title.includes(query) ||
+    //     result.content.includes(query) ||
+    //     result.excerpt.includes(query) ||
+    //     (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
+    // );
+    // console.log('Resultados da busca:', results); // Verifica o conteúdo de 'results'
   }
 
   if (maxResults && results.length > maxResults) {

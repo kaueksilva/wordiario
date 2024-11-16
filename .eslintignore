@@ -43,6 +43,7 @@ package-lock.json
 .gitignore
 .eslintignore
 
+src
 
 public
 

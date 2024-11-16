@@ -5,6 +5,7 @@ import { FaSearch } from 'react-icons/fa';
 import useSearch, { SEARCH_STATE_LOADED } from 'hooks/use-search';
 import Link from 'next/link';
 import { postPathBySlug } from 'lib/posts';
+import { getPostsCustomApi } from 'lib/search';
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
@@ -12,6 +13,9 @@ const SEARCH_HIDDEN = 'hidden';
 const Search = () => {
   const formRef = useRef();
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
+  // constante de estado para atualizar o 'value' do campo de pesquisa de acordo com que o usuário digita
+  const [valueSearch, setValueSearch] = useState('');
+  const [searchData, setSearchData] = useState({});
   const { query, results, search, clearSearch, state } = useSearch({ maxResults: 10 });
   const searchIsLoaded = state === SEARCH_STATE_LOADED;
   // Memoize the handleOnDocumentClick function with useCallback to ensure it's stable
@@ -112,17 +116,26 @@ const Search = () => {
                 <form
                   ref={formRef}
                   action="/search"
-                  data-search-is-active={!!query}
+                  // antes era !!query
+                  data-search-is-active={!!searchData}
                   className="flex items-center justify-center relative w-full"
                 >
                   <input
                     type="search"
                     name="q"
-                    value={query || ''}
+                    // value={query || ''}
+                    // value={valueSearch}
                     onChange={(e) => {
                       console.log(e.currentTarget.value);
-                      search({ query: e.currentTarget.value });
+                      // setando a constante de estado valueSearch de acordo com que o usuário digitou
+                      setValueSearch(e.currentTarget.value);
+                      // busca antiga
+                      // search({ query: e.currentTarget.value });
+
+                      //busca nova feita por zé da manga
+                      setSearchData(getPostsCustomApi(e.currentTarget.value));
                     }}
+                    onClick={() => {setSearchData(getPostsCustomApi(e.currentTarget.value));}}
                     autoComplete="off"
                     placeholder="Pesquisar..."
                     required
@@ -133,9 +146,10 @@ const Search = () => {
                       query ? 'block' : 'hidden'
                     }`}
                   >
-                    {results.length > 0 ? (
+                    {/* antes era results.lenght*/}
+                    {searchData.length > 0 ? (
                       <ul className="list-none border-t-[3px] border-[#7baeff]">
-                        {results.map(({ slug, title }, index) => (
+                        {searchData.map(({ slug, title }, index) => (
                           <li key={slug} className="p-1 -mx-2">
                             <Link
                               tabIndex={index}
