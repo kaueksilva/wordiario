@@ -24,7 +24,7 @@ import {
  */
 
 export function postPathBySlug(slug) {
-  console.log('É nós !!');
+  // console.log('É nós !!');
   return `/posts/${slug}`;
 }
 

@@ -4,7 +4,7 @@ import Fuse from 'fuse.js';
 
 import { getSearchData } from 'lib/search';
 
-const SEARCH_KEYS = ['slug', 'title', 'content', 'date', 'excerpt'];
+const SEARCH_KEYS = ['slug', 'title', 'content', 'date', 'excerpt', 'category' ,'tags'];
 
 export const SEARCH_STATE_LOADING = 'LOADING';
 export const SEARCH_STATE_READY = 'READY';
@@ -24,13 +24,27 @@ export function useSearchState() {
 
   let client;
 
+  // if (data) {
+  //   client = new Fuse(data.posts, {
+  //     keys: SEARCH_KEYS,
+  //     isCaseSensitive: false,
+  //     includeScore: true, // Inclui pontuação para priorizar correspondências mais próximas
+  //     useExtendedSearch: true,
+  //     threshold: 0.3, // Controle de precisão (ajuste conforme necessário)
+  //   });
+  //   console.log(`Passei no use-search ${data.posts}`);
+  // }
+
   if (data) {
     client = new Fuse(data.posts, {
       keys: SEARCH_KEYS,
       isCaseSensitive: false,
-      includeScore: true, // Inclui pontuação para priorizar correspondências mais próximas
+      includeScore: true,
+      shouldSort: true,           // Ordena automaticamente por pontuação
       useExtendedSearch: true,
-      threshold: 0.6, // Controle de precisão (ajuste conforme necessário)
+      threshold: 1,             // Ajuste de precisão para melhorar a exatidão
+      distance: 200,              // Prioriza correspondências mais próximas
+      // minMatchCharLength: 2       // Define o mínimo de caracteres para correspondência
     });
     console.log(`Passei no use-search ${data.posts}`);
   }
@@ -44,9 +58,11 @@ export function useSearchState() {
       try {
         searchData = await getSearchData();
         if (!searchData || !searchData.posts) {
+          console.log(`searchDataERRO: ${searchData}`);
           throw new Error('Dados de busca inválidos ou vazios');
         }
         setData(searchData);
+        console.log(`searchData: ${searchData}`);
         setState(SEARCH_STATE_LOADED);
       } catch (e) {
         setState(SEARCH_STATE_ERROR);
@@ -73,15 +89,27 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
 
   if (client && query) {
+    console.log(`AQUI ESTÁ A QUERY:${query}`);
     results = client.search(query).map(({ item }) => item);
     // Filtra ainda mais os resultados com base no conteúdo dos campos
-    results = results.filter(
-      (result) =>
-        result.title.includes(query) ||
-        result.content.includes(query) ||
-        result.excerpt.includes(query) ||
-        (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
-    );
+    // results = results.filter(
+    //   (result) =>
+    //     result.title.includes(query) ||
+    //     result.content.includes(query) ||
+    //     result.excerpt.includes(query) ||
+    //     (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
+    // );
+
+  {/* CÓDIGO DO GPT */}
+
+    // results = results.filter(
+    //   (result) =>
+    //     (result.title && result.title.includes(query)) ||
+    //     (result.content && result.content.includes(query)) ||
+    //     (result.excerpt && result.excerpt.includes(query)) ||
+    //     (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
+    // );
+    
     console.log('Resultados da busca:', results); // Verifica o conteúdo de 'results'
   }
 

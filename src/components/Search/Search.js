@@ -135,7 +135,7 @@ const Search = () => {
                   >
                     {results.length > 0 ? (
                       <ul className="list-none border-t-[3px] border-[#7baeff]">
-                        {results.map(({ slug, title }, index) => (
+                        {results.map(({ slug, title, content, date, excerpt }, index) => (
                           <li key={slug} className="p-1 -mx-2">
                             <Link
                               tabIndex={index}
@@ -143,6 +143,8 @@ const Search = () => {
                               className="block text-gray-800 no-underline p-2 focus:outline focus:outline-blue-500 hover:text-primary"
                             >
                               {title}
+                              {content}
+                      
                             </Link>
                           </li>
                         ))}
