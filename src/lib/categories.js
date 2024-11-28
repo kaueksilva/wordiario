@@ -7,6 +7,7 @@ import { QUERY_ALL_CATEGORIES, QUERY_CATEGORY_BY_SLUG, QUERY_CATEGORY_SEO_BY_SLU
  */
 
 export function categoryPathBySlug(slug) {
+  console.log(`[categoryPathBySlug] slug: ${slug}`);
   return `/categories/${slug}`;
 }
 
@@ -28,6 +29,45 @@ export async function getAllCategories() {
   };
 }
 
+/**
+ * getPaginatedCategories
+ */
+
+export async function getPaginatedCategories({ currentPage = 1, categoriesPerPage = 10 }) {
+  const apolloClient = getApolloClient();
+
+  try {
+    const offset = (currentPage - 1) * categoriesPerPage;
+
+    const { data } = await apolloClient.query({
+      query: QUERY_ALL_CATEGORIES,
+      variables: {
+        first: categoriesPerPage,
+        offset: offset,
+      },
+    });
+
+    const categories = data?.categories?.edges.map(({ node }) => node) || [];
+    const totalCategories = data?.categories?.totalCount || 0;
+
+    return {
+      categories,
+      pagination: {
+        currentPage,
+        pagesCount: Math.ceil(totalCategories / categoriesPerPage),
+      },
+    };
+  } catch (error) {
+    console.error(`[getPaginatedCategories] Failed to fetch paginated categories: ${error.message}`);
+    return {
+      categories: [],
+      pagination: {
+        currentPage,
+        pagesCount: 0,
+      },
+    };
+  }
+}
 /**
  * getCategoryBySlug
  */
@@ -77,11 +117,6 @@ export async function getCategoryBySlug(slug) {
     category.title = seo.title;
     category.description = seo.metaDesc;
 
-    // The SEO plugin by default includes a canonical link, but we don't want to use that
-    // because it includes the WordPress host, not the site host. We manage the canonical
-    // link along with the other metadata, but explicitly check if there's a custom one
-    // in here by looking for the API's host in the provided canonical link
-
     if (seo.canonical && !seo.canonical.includes(apiHost)) {
       category.canonical = seo.canonical;
     }
@@ -122,13 +157,22 @@ export async function getCategoryBySlug(slug) {
 }
 
 /**
- * getCategories
+ * getCategories with Pagination
  */
 
-export async function getCategories({ count } = {}) {
+export async function getCategories({ count, page = 1 } = {}) {
   const { categories } = await getAllCategories();
+
+  // Paginate the categories, 10 per page
+  const startIndex = (page - 1) * count;
+  const endIndex = startIndex + count;
+  const paginatedCategories = categories.slice(startIndex, endIndex);
+
   return {
-    categories: categories.slice(0, count),
+    categories: paginatedCategories,
+    totalCategories: categories.length,
+    totalPages: Math.ceil(categories.length / count),
+    currentPage: page,
   };
 }
 

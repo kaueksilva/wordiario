@@ -64,8 +64,8 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
 
 export const QUERY_ALL_POSTS = gql`
   ${POST_FIELDS}
-  query AllPosts {
-    posts(first: 10000, where: { hasPassword: false }) {
+  query AllPosts($first: Int!, $after: String) {
+    posts(first: $first, after: $after, where: { hasPassword: false }) {
       edges {
         node {
           ...PostFields
@@ -81,6 +81,7 @@ export const QUERY_ALL_POSTS = gql`
               slug
             }
           }
+
           content
           excerpt
           featuredImage {

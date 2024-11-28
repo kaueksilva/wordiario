@@ -1,3 +1,5 @@
+// Essa parte do código é inicializada primeiro fazendo com que o arquivo de wp-search.json seja gerado na pasta public.
+
 const path = require('path');
 const { getAllPosts, generateIndexSearch } = require('./util');
 

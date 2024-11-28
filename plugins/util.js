@@ -66,13 +66,15 @@ function createApolloClient(url) {
 }
 
 /**
- * getAllPosts
+ * getAllPosts -> Esta função busca todas as portagens começando da ultima publicação do ano atual para o utimo ano, formata e limpa o conteúdo,
+ * e retorna uma lista organizada com apenas os dados relevantes e simpplificados para serem usados no frontend
+ * ou em outro parte da aplicação.
  */
 
 async function getAllPosts(apolloClient, process, verbose = false) {
   const query = gql`
     {
-      posts(first: 10000) {
+      posts(first: 10000, where: {dateQuery: {inclusive: false}) {
         edges {
           node {
             title
@@ -81,7 +83,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
             slug
             date
             modified
-            content   // Adicionado campo content
+            content
             author {
               node {
                 name
@@ -105,7 +107,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
 
   try {
     const data = await apolloClient.query({ query });
-    const nodes = data.data.posts.edges.map(({ node = {} }) => node);
+    const nodes = [...data.data.posts.edges.map(({ node = {} }) => node)];
 
     posts = nodes.map((post) => {
       const data = { ...post };
@@ -115,19 +117,16 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       }
 
       if (data.categories) {
-        // Mapear as categorias para incluir `name` e `description`
-        data.categories = data.categories.edges.map(({ node }) => ({
-          name: node.name,
-          description: node.description,
-        }));
+        data.categories = data.categories.edges.map(({ node }) => node.name);
       }
 
       if (data.excerpt) {
-        // Remover todas as tags HTML do excerpt
+        //Limpe o trecho removendo todas as tags HTML
         const regExHtmlTags = /(<([^>]+)>)/g;
         data.excerpt = data.excerpt.replace(regExHtmlTags, '');
       }
       if (data.content) {
+        //Limpe o trecho removendo todas as tags HTML
         const regExHtmlTags = /(<([^>]+)>)/g;
         data.content = data.content.replace(regExHtmlTags, '').trim();
       }
@@ -143,7 +142,83 @@ async function getAllPosts(apolloClient, process, verbose = false) {
     throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
+/**
+ * getAllPosts -> Esta função busca todas as portagens começando da ultima publicação do ano utimo ano para o ano atual,
+ * formata e limpa o conteúdo, e retorna uma lista organizada com apenas os dados relevantes e simpplificados
+ * para serem usados no frontend ou em outro parte da aplicação.
+ */
 
+async function getAllPostsAsc(apolloClient, process, verbose = false) {
+  const query = gql`
+    {
+      posts(last: 10000, where: {dateQuery: {inclusive: false}) {
+        edges {
+          node {
+            title
+            excerpt
+            databaseId
+            slug
+            date
+            modified
+            content
+            author {
+              node {
+                name
+              }
+            }
+            categories {
+              edges {
+                node {
+                  name
+                  description
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  let posts = [];
+
+  try {
+    const data = await apolloClient.query({ query });
+    const nodes = [...data.data.posts.edges.map(({ node = {} }) => node)];
+
+    posts = nodes.map((post) => {
+      const data = { ...post };
+
+      if (data.author) {
+        data.author = data.author.node.name;
+      }
+
+      if (data.categories) {
+        data.categories = data.categories.edges.map(({ node }) => node.name);
+      }
+
+      if (data.excerpt) {
+        //Limpe o trecho removendo todas as tags HTML
+        const regExHtmlTags = /(<([^>]+)>)/g;
+        data.excerpt = data.excerpt.replace(regExHtmlTags, '');
+      }
+      if (data.content) {
+        //Limpe o trecho removendo todas as tags HTML
+        const regExHtmlTags = /(<([^>]+)>)/g;
+        data.content = data.content.replace(regExHtmlTags, '').trim();
+      }
+
+      return data;
+    });
+
+    verbose && console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
+    return {
+      posts,
+    };
+  } catch (e) {
+    throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
+  }
+}
 /**
  * getSiteMetadata
  */
@@ -227,10 +302,12 @@ async function getPages(apolloClient, process, verbose = false) {
 async function getFeedData(apolloClient, process, verbose = false) {
   const metadata = await getSiteMetadata(apolloClient, process, verbose);
   const posts = await getAllPosts(apolloClient, process, verbose);
+  const postsAsc = await getAllPostsAsc(apolloClient, process, verbose);
 
   return {
     ...metadata,
     ...posts,
+    ...postsAsc,
   };
 }
 
@@ -240,10 +317,12 @@ async function getFeedData(apolloClient, process, verbose = false) {
 
 async function getSitemapData(apolloClient, process, verbose = false) {
   const posts = await getAllPosts(apolloClient, process, verbose);
+  const postsAsc = await getAllPostsAsc(apolloClient, process, verbose);
   const pages = await getPages(apolloClient, process, verbose);
 
   return {
     ...posts,
+    ...postsAsc,
     ...pages,
   };
 }
@@ -283,34 +362,67 @@ function generateFeed({ posts = [], metadata = {} }) {
  * generateIndexSearch
  */
 
-function generateIndexSearch({ posts }) {
-  const index = posts.map((post = {}) => {
-    // Decodificar os campos usando he.decode para uso seguro em DOM
-    const title = he.decode(post.title);
-    const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
-    const content = post.content ? he.decode(post.content) : '';
+// function generateIndexSearchWithPosts({ posts }) {
+//   const index = posts.map((post = {}) => {
+//     // We need to decode the title because we're using the
+//     // rendered version which assumes this value will be used
+//     // within the DOM
 
-    // Mapear as categorias para incluir `name` e `description`, aplicando he.decode
-    const categories = post.categories
-      ? post.categories.map((category) => ({
-          name: category.name ? he.decode(category.name) : '',
-          description: category.description ? he.decode(category.description) : '',
-        }))
-      : [];
+//     const title = he.decode(post.title);
+//     const excerpt = post.excerpt ? he.decode(post.excerpt) : '';
+//     const content = post.content ? he.decode(post.content) : '';
 
-    return {
-      title,
-      slug: post.slug,
-      date: post.date,
-      excerpt,
-      categories,
-      content,
-    };
-  });
+//     const allCategories = post.categories
+//       ? post.allCategories.map((category) => ({
+//           name: category.name ? he.decode(category.name) : '',
+//           description: category.description ? he.decode(category.description) : '',
+//         }))
+//       : [];
+
+//     return {
+//       title,
+//       slug: post.slug,
+//       date: post.date,
+//       excerpt,
+//       categories: post.categories,
+//       allCategories,
+//       content,
+//     };
+//   });
+
+//   const indexJson = JSON.stringify({
+//     generated: Date.now(),
+//     posts: index,
+//   });
+
+//   return indexJson;
+// }
+/**
+ * generateIndexSearch
+ */
+function generateIndexSearch(postsAsc, postsDesc) {
+  const indexAsc = postsAsc.map((post = {}) => ({
+    title: he.decode(post.title),
+    slug: post.slug,
+    date: post.date,
+    excerpt: post.excerpt ? he.decode(post.excerpt) : '',
+    categories: post.categories,
+    content: post.content ? he.decode(post.content) : '',
+  }));
+
+  const indexDesc = postsDesc.map((post = {}) => ({
+    title: he.decode(post.title),
+    slug: post.slug,
+    date: post.date,
+    excerpt: post.excerpt ? he.decode(post.excerpt) : '',
+    categories: post.categories,
+    content: post.content ? he.decode(post.content) : '',
+  }));
 
   const indexJson = JSON.stringify({
     generated: Date.now(),
-    posts: index,
+    postsAsc: indexAsc,
+    postsDesc: indexDesc,
   });
 
   return indexJson;
