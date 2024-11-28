@@ -10,6 +10,7 @@ import Nav from 'components/Nav';
 import Main from 'components/Main';
 import ScrollToTop from 'components/ScrollToTop';
 import Footer from 'components/Footer';
+import Vlibras from 'components/Libras';
 
 const Layout = ({ children }) => {
   const router = useRouter();
@@ -35,8 +36,6 @@ const Layout = ({ children }) => {
           href: '/feed.xml',
         },
 
-        // Favicon sizes and manifest generated via https://favicon.io/
-
         {
           rel: 'apple-touch-icon',
           sizes: '180x180',
@@ -59,7 +58,7 @@ const Layout = ({ children }) => {
       <Main>{children}</Main>
 
       <ScrollToTop />
-
+      <Vlibras />
       <Footer />
     </div>
   );
