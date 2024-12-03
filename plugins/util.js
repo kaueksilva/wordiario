@@ -358,12 +358,11 @@ function generateFeed({ posts = [], metadata = {} }) {
 
   return feed.xml({ indent: true });
 }
-
 /**
  * generateIndexSearch
  */
 
-// function generateIndexSearch({ posts }) {
+// function generateIndexSearchWithPosts({ posts }) {
 //   const index = posts.map((post = {}) => {
 //     // We need to decode the title because we're using the
 //     // rendered version which assumes this value will be used

@@ -21,6 +21,7 @@ export const SearchProvider = (props) => {
 export function useSearchState() {
   const [state, setState] = useState(SEARCH_STATE_READY);
   const [data, setData] = useState(null);
+  const [query, setQuery] = useState(''); // Adiciona estado da query
 
   let client;
 
@@ -28,90 +29,96 @@ export function useSearchState() {
     client = new Fuse(data.posts, {
       keys: SEARCH_KEYS,
       isCaseSensitive: false,
-      includeScore: true, // Inclui pontuação para priorizar correspondências mais próximas
+      includeScore: true,
       useExtendedSearch: true,
-      threshold: 0.6, // Controle de precisão (ajuste conforme necessário)
+      threshold: 0.6,
     });
-    console.log(`Passei no use-search ${data.posts}`);
   }
 
   useEffect(() => {
+    if (!query) {
+      setData(null); // Reseta os dados se a consulta estiver vazia
+      setState(SEARCH_STATE_READY);
+      return;
+    }
+
     (async function getData() {
       setState(SEARCH_STATE_LOADING);
 
       let searchData;
 
       try {
-        searchData = await getSearchData();
+        searchData = await getSearchData(query); // Chama a API com a nova query
+        console.log(searchData);
+
         if (!searchData || !searchData.posts) {
+          console.log('Aqui não houve busca de Dados algum');
           throw new Error('Dados de busca inválidos ou vazios');
         }
-        setData(searchData);
+        setData(searchData); // Atualiza os dados com os resultados da pesquisa
         setState(SEARCH_STATE_LOADED);
       } catch (e) {
+        console.error('Erro ao buscar dados:', e);
         setState(SEARCH_STATE_ERROR);
       }
     })();
-  }, []);
+  }, [query]);
 
   return {
     state,
     data,
     client,
+    setQuery,
   };
 }
 
 export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   const search = useContext(SearchContext);
-  const { client } = search;
+  const { client, setQuery, state } = search;
 
-  const [query, setQuery] = useState('');
-
+  const [query, setLocalQuery] = useState('');
   let results = [];
 
-  // Se tivermos uma consulta, faça uma busca.
-  // Caso contrário, não modifique os resultados para evitar retornar resultados vazios
-
+  // Realiza a busca se houver um cliente e uma consulta
   if (client && query) {
     results = client.search(query).map(({ item }) => item);
-    // Filtra ainda mais os resultados com base no conteúdo dos campos
     results = results.filter(
       (result) =>
         result.title.includes(query) ||
         result.content.includes(query) ||
         result.excerpt.includes(query) ||
-        (result.date && result.date.includes(query)) // Filtro adicional para o campo 'date'
+        (result.date && result.date.includes(query))
     );
-    console.log('Resultados da busca:', results); // Verifica o conteúdo de 'results'
   }
 
   if (maxResults && results.length > maxResults) {
     results = results.slice(0, maxResults);
   }
 
-  // Se o argumento defaultQuery mudar, o hook deve refletir
-  // essa atualização e definir isso como o novo estado
+  useEffect(() => {
+    if (defaultQuery) {
+      setLocalQuery(defaultQuery);
+      setQuery(defaultQuery); // Atualiza o contexto com a query padrão
+    }
+  }, [defaultQuery, setQuery]);
 
-  useEffect(() => setQuery(defaultQuery), [defaultQuery]);
-
-  /* handleSearch
-   */
-
+  // Atualiza a query local e a query global para realizar a busca
   function handleSearch({ query }) {
-    setQuery(query);
+    setLocalQuery(query);
+    setQuery(query); // Atualiza a query no contexto e dispara a busca na API
   }
 
-  /* handleClearSearch
-   */
-
+  // Limpa a pesquisa
   function handleClearSearch() {
-    setQuery(null);
+    setLocalQuery('');
+    setQuery(''); // Limpa a consulta no contexto
   }
 
   return {
     ...search,
     query,
     results,
+    state, // Retorna o estado para controlar carregamento e erros
     search: handleSearch,
     clearSearch: handleClearSearch,
   };

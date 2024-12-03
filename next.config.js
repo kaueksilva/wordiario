@@ -5,7 +5,7 @@ const sitemap = require('./plugins/sitemap');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
 
   // By default, Next.js removes the trailing slash. One reason this would be good

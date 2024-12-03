@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { getCategoryBySlug } from 'lib/categories';
-import { getPostsByCategoryId, getPaginatedPosts } from 'lib/posts';
+import { getPaginatedPosts } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import HeaderSlug from 'components/HeaderSlug';
@@ -7,21 +8,30 @@ import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 import { getAllCategories } from 'lib/categories';
 
-export default function Category({ category, posts }) {
-  // Mesmo que category ou posts sejam indefinidos, o hook deve ser chamado antes
+export default function Category({ category, initialPosts, initialPagination }) {
+  const [setCurrentPage] = useState(initialPagination?.currentPage || 1);
+  const [currentCategories] = useState([]);
+  const [pagination] = useState(initialPagination);
+
   const { name, description, slug } = category || {};
 
   const { metadata } = usePageMetadata({
     metadata: {
       ...category,
-      description: description || category?.og?.description || `Read ${posts?.length} posts from ${name}`,
+      description: description || category?.og?.description || `Read ${initialPosts?.length} posts from ${name}`,
     },
   });
 
   // Agora você pode checar a existência de 'category' ou 'posts' depois
-  if (!category || !posts) {
+  if (!category || !initialPosts) {
     return <p>Data not available</p>;
   }
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= pagination?.pagesCount) {
+      setCurrentPage(newPage);
+    }
+  };
 
   return (
     <>
@@ -63,10 +73,12 @@ export default function Category({ category, posts }) {
       <TemplateArchive
         title={name}
         Title={<Title title={name} />}
-        posts={posts}
+        posts={initialPosts}
         slug={slug}
         metadata={metadata}
-        //pagination={pagination} //aparece a paginação no final da página
+        categories={currentCategories} // Lista de categorias paginadas
+        pagination={pagination} // aparece a paginação no final da página
+        handlePageChange={handlePageChange} // Função para mudar a página
       />
     </>
   );
@@ -82,32 +94,25 @@ export async function getStaticProps({ params = {} } = {}) {
     };
   }
 
-  const { posts } = await getPostsByCategoryId({
+  const { posts, pagination } = await getPaginatedPosts({
+    currentPage: 1,
     categoryId: category.databaseId,
     queryIncludes: 'archive',
+    postsPerPage: 10, // Limitar para 10 posts por página
   });
-
-  const { pagination } = await getPaginatedPosts({
-    currentPage: params?.page,
-    queryIncludes: 'archive',
-  });
-
-  if (!pagination?.currentPage) {
-    return {
-      props: {},
-      notFound: true,
-    };
-  }
 
   return {
     props: {
       category,
-      posts,
-      pagination: {
-        ...pagination,
-        basePath: `/categories/${category.slug}`, // Ajuste o basePath para usar a slug da categoria
-      },
+      initialPosts: posts,
+      initialPagination: pagination
+        ? {
+            ...pagination,
+            basePath: `/categories/${category.slug}`, // Ajuste o basePath para usar a slug da categoria
+          }
+        : null,
     },
+    revalidate: 10, // Cacheando os dados por 10 segundos
   };
 }
 
@@ -118,6 +123,7 @@ export async function getStaticPaths() {
     return {
       params: {
         slug,
+        page: '1',
       },
     };
   });

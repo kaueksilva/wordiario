@@ -35,8 +35,6 @@ const Layout = ({ children }) => {
           href: '/feed.xml',
         },
 
-        // Favicon sizes and manifest generated via https://favicon.io/
-
         {
           rel: 'apple-touch-icon',
           sizes: '180x180',

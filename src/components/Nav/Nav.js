@@ -6,6 +6,7 @@ import { IoIosArrowDown } from 'react-icons/io';
 import Search from '../Search';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 const Menu = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -115,208 +116,205 @@ const Menu = () => {
                 </button>
               </div>
 
-              <ul className="nav-menu hidden lg:flex gap-8 pr-11 text-[#000000] font-open-sans text-[14px]">
+              <div className="nav-menu hidden lg:flex gap-8 pr-10 text-[#000000] font-open-sans text-[14px]">
                 {/* Atas de Registro de Preços */}
-                <li
+                <div
                   className="nav-item relative"
                   onMouseEnter={() => toggleDropdown('Registros')}
                   onMouseLeave={() => toggleDropdown('Registros')}
                 >
-                  <a href="#" className="text-[#333333] hover:text-[#7baeff] flex items-center py-2">
+                  <Link href="#" className="text-[#333333] hover:text-[#7baeff] flex items-center py-2">
                     <span>Atas de Registro de Preços</span>
                     <IoIosArrowDown />
-                  </a>
+                  </Link>
 
                   {dropdowns.Registros && (
-                    <ul className="absolute border-t-[3px] border-[#7baeff] w-[185px] bg-white shadow-lg">
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2024"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                    <div className="absolute border-t-[3px] border-[#7baeff] w-[185px] bg-white shadow-lg">
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2024"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2024
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2023"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2023"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2023
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2022"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2022"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2022
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2021"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2021"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2021
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2020"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2020"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2020
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/ata-de-registro-de-precos-de-2019"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/ata-de-registro-de-precos-de-2019"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2019
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/registro-preco-2018"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/registro-preco-2018"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2018
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/registro-preco-2017"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/registro-preco-2017"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2017
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/registro-preco-2016"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/registro-preco-2016"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Registro de Preço - 2016
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/registro-preco-2015"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px]border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/registro-preco-2015"
+                          className="block py-2 pl-3 text-[#000000] text-[14px]"
                         >
                           Registro de Preço - 2015
-                        </a>
-                      </li>
-                    </ul>
+                        </Link>
+                      </div>
+                    </div>
                   )}
-                </li>
+                </div>
 
                 {/* Publicações Anteriores do DO */}
-                <li
+                <div
                   className="nav-item relative"
                   onMouseEnter={() => toggleDropdown('Publicacoes')}
                   onMouseLeave={() => toggleDropdown('Publicacoes')}
                 >
-                  <a href="#" className="text-[#333333] hover:text-[#7baeff] flex items-center py-2">
+                  <Link href="#" className="text-[#333333] hover:text-[#7baeff] flex items-center py-2">
                     <span>Publicações Anteriores do DO</span>
                     <IoIosArrowDown />
-                  </a>
+                  </Link>
 
                   {dropdowns.Publicacoes && (
-                    <ul className="absolute border-t-[3px] border-[#7baeff] w-[185px] bg-white shadow-lg">
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2024"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                    <div className="absolute border-t-[3px] border-[#7baeff] w-[160px] bg-white shadow-lg">
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2024"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2024
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2023"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2023"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2023
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2022"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2022"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2022
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2021"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2021"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2021
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2020"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2020"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2020
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/diario-oficial-2019"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/diario-oficial-2019"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2019
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/do-2018"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/do-2018"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2018
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/do-2017"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/do-2017"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2017
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/do-2016"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
+                        </Link>
+                      </div>
+                      <div>
+                        <Link
+                          href="/categories/do-2016"
+                          className="block py-2 pl-3 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
                         >
                           Diário Oficial - 2016
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href=" /categories/do-2015"
-                          className="block py-2 text-[#000000] text-[14px] border-b-[1px] border-[#c4c4c4]"
-                        >
+                        </Link>
+                      </div>
+                      <div>
+                        <Link href="/categories/do-2015" className="block py-2 pl-3 text-[#000000] text-[14px]">
                           Diário Oficial - 2015
-                        </a>
-                      </li>
-                    </ul>
+                        </Link>
+                      </div>
+                    </div>
                   )}
-                </li>
+                </div>
 
                 {/* Busca */}
-                <li>
+                <div>
                   <div className="ml-[-20px]">
                     <Search />
                   </div>
-                </li>
-              </ul>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -326,10 +324,18 @@ const Menu = () => {
               {''}
               {/* Adiciona lg:hidden */}
               <div className="icones flex gap-5 mb-10">
-                <i className="ri-twitter-x-line text-white text-[24px]"></i>
-                <i className="ri-facebook-circle-fill text-white text-[24px]"></i>
-                <i className="ri-instagram-line text-white text-[24px]"></i>
-                <i className="ri-youtube-fill text-white text-[24px]"></i>
+                <a href="https://www.facebook.com/PrefeituradoJaboatao" target="_blank">
+                  <i className="ri-twitter-x-line text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.facebook.com/PrefeituradoJaboatao" target="_blank">
+                  <i className="ri-facebook-circle-fill text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.instagram.com/prefjaboatao/" target="_blank">
+                  <i className="ri-instagram-line text-white text-[24px]"></i>
+                </a>
+                <a href="https://www.youtube.com/prefeiturajaboatao" target="_blank">
+                  <i className="ri-youtube-fill text-white text-[24px]"></i>
+                </a>
               </div>
               <ul className="text-center text-[20px] font-bold">
                 {/* Atas de Registro de Preços */}

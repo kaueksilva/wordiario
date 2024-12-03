@@ -32,6 +32,7 @@
     "he": "^1.2.0",
     "jspdf": "^2.5.2",
     "loader-utils": "^3.2.1",
+    "lodash.debounce": "^4.0.8",
     "next": "^13.4.0",
     "next-wordpress-starter": "file:",
     "nextjs-progressbar": "^0.0.16",
@@ -57,7 +58,6 @@
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "playwright": "^1.33.0",
-    "prettier": "2.8.8"
+    "playwright": "^1.33.0"
   }
 }
